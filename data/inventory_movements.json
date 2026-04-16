@@ -1,0 +1,47 @@
+[
+  {
+    "movement_id": "m001_1776303934.679199",
+    "equipment_id": "m001",
+    "lab_id": "manufaktur",
+    "movement_type": "out",
+    "quantity": -1.0,
+    "date": "2026-04-16T08:45:34.679211",
+    "notes": "Penggunaan/Praktikum"
+  },
+  {
+    "movement_id": "e96d7c73_1776306658.462413",
+    "equipment_id": "e96d7c73",
+    "lab_id": "manufaktur",
+    "movement_type": "in",
+    "quantity": 4.0,
+    "date": "2026-04-16T09:30:58.462429",
+    "notes": ""
+  },
+  {
+    "movement_id": "64c8e854_1776306732.68376",
+    "equipment_id": "64c8e854",
+    "lab_id": "material",
+    "movement_type": "in",
+    "quantity": 1.0,
+    "date": "2026-04-16T09:32:12.683774",
+    "notes": ""
+  },
+  {
+    "movement_id": "64c8e854_1776306741.076241",
+    "equipment_id": "64c8e854",
+    "lab_id": "material",
+    "movement_type": "in",
+    "quantity": 7.0,
+    "date": "2026-04-16T09:32:21.076254",
+    "notes": ""
+  },
+  {
+    "movement_id": "64c8e854_1776306761.676897",
+    "equipment_id": "64c8e854",
+    "lab_id": "material",
+    "movement_type": "out",
+    "quantity": -2.0,
+    "date": "2026-04-16T09:32:41.676909",
+    "notes": "Penggunaan/Praktikum"
+  }
+]
