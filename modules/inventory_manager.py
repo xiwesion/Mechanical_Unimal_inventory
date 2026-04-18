@@ -45,7 +45,8 @@ class InventoryManager:
             print(f"Error saving movements: {e}")
     
     def record_movement(self, equipment_id: str, lab_id: str, movement_type: str, 
-                       quantity: float, notes: str = "") -> bool:
+                       quantity: float, notes: str = "", movement_date: str = None, 
+                       equipment_name: str = "", lab_name: str = "") -> bool:
         """
         Record inventory movement
         
@@ -55,19 +56,30 @@ class InventoryManager:
             movement_type: Type of movement (in, out, adjustment, transfer)
             quantity: Quantity moved (positive or negative)
             notes: Additional notes
+            movement_date: Date of movement (ISO format or None for current date)
+            equipment_name: Equipment name (for display, optional but recommended)
+            lab_name: Lab name (for display, optional but recommended)
         
         Returns:
             True if successful
         """
         try:
+            # Use provided date or current datetime
+            if movement_date:
+                record_date = movement_date
+            else:
+                record_date = datetime.now().isoformat()
+            
             movement = {
                 'movement_id': f"{equipment_id}_{datetime.now().timestamp()}",
                 'equipment_id': equipment_id,
                 'lab_id': lab_id,
                 'movement_type': movement_type,
                 'quantity': quantity,
-                'date': datetime.now().isoformat(),
-                'notes': notes
+                'date': record_date,
+                'notes': notes,
+                'equipment_name': equipment_name,  # NEW: Store for display
+                'lab_name': lab_name  # NEW: Store for display
             }
             
             self.movements.append(movement)
@@ -117,11 +129,15 @@ class InventoryManager:
         try:
             if start_date:
                 start = date_parser.parse(start_date)
+                # Set to beginning of day
+                start = start.replace(hour=0, minute=0, second=0, microsecond=0)
             else:
                 start = datetime.min
             
             if end_date:
                 end = date_parser.parse(end_date)
+                # Set to end of day
+                end = end.replace(hour=23, minute=59, second=59, microsecond=999999)
             else:
                 end = datetime.max
             

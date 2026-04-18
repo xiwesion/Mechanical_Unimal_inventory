@@ -472,3 +472,94 @@ def inject_custom_css(theme_name='sage'):
     """
     
     st.markdown(css, unsafe_allow_html=True)
+
+
+# ============================================================================
+# REALTIME STATISTICS FUNCTIONS
+# ============================================================================
+
+def init_stats_cache():
+    """Initialize statistics cache in session state"""
+    import streamlit as st
+    
+    if 'stats_cache' not in st.session_state:
+        st.session_state.stats_cache = {
+            'total_items': 0,
+            'total_value': 0,
+            'total_equipment': 0,
+            'last_update': None,
+            'is_stale': True
+        }
+
+
+def calculate_realtime_stats():
+    """Calculate realtime statistics optimally from managers"""
+    import streamlit as st
+    
+    try:
+        equipment_manager = st.session_state.equipment_manager
+        all_equipment = equipment_manager.get_all_equipment()
+        
+        # Calculate totals efficiently
+        total_items = 0
+        total_value = 0
+        total_equipment = len(all_equipment)
+        
+        for eq in all_equipment:
+            try:
+                qty = float(eq.get('jumlah', 0))
+                value = float(eq.get('harga_keseluruhan', 0))
+                total_items += qty
+                total_value += value
+            except (ValueError, TypeError):
+                continue
+        
+        # Update cache
+        st.session_state.stats_cache = {
+            'total_items': int(total_items),
+            'total_value': total_value,
+            'total_equipment': total_equipment,
+            'last_update': datetime.now().isoformat(),
+            'is_stale': False
+        }
+        
+        return st.session_state.stats_cache
+    
+    except Exception as e:
+        print(f"Error calculating stats: {e}")
+        return st.session_state.stats_cache
+
+
+def get_cached_stats():
+    """Get statistics from cache, recalculate if stale"""
+    import streamlit as st
+    
+    init_stats_cache()
+    
+    if st.session_state.stats_cache.get('is_stale', True):
+        return calculate_realtime_stats()
+    
+    return st.session_state.stats_cache
+
+
+def mark_stats_stale():
+    """Mark stats cache as stale to trigger recalculation"""
+    import streamlit as st
+    
+    init_stats_cache()
+    st.session_state.stats_cache['is_stale'] = True
+
+
+def refresh_stats_immediately():
+    """Immediately refresh statistics (used after add/update/delete)"""
+    import streamlit as st
+    
+    mark_stats_stale()
+    return calculate_realtime_stats()
+
+
+# ============================================================================
+# IMPORT DATETIME FOR STATS
+# ============================================================================
+
+from datetime import datetime

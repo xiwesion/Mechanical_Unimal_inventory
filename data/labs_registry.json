@@ -1,1 +1,18 @@
-{}
+{
+  "teknik_mesin": {
+    "name": "Lab Teknik Mesin",
+    "description": "Lab umum teknik mesin",
+    "color": "#E8F5E9",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:32.132472",
+    "equipment_count": 0
+  },
+  "lab_mtet": {
+    "name": "Lab Magister Teknik Energi Terbarukan",
+    "description": "",
+    "color": "#E8F5E9",
+    "lab_id": "lab_mtet",
+    "created_date": "2026-04-19T00:09:26.170641",
+    "equipment_count": 0
+  }
+}

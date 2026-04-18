@@ -336,3 +336,129 @@ class TemplateHandler:
         except Exception as e:
             print(f"Error exporting consumption report: {e}")
             return None
+    
+    def export_all_data(self, equipment_list: list, consumption_data: dict, movements_data: list = None) -> bytes:
+        """
+        Export all data (Equipment + Consumption + Movements) to Excel with multiple sheets
+        
+        Args:
+            equipment_list: List of equipment dictionaries
+            consumption_data: Consumption data dictionary
+            movements_data: List of movement records
+        
+        Returns:
+            Excel file as bytes
+        """
+        try:
+            wb = Workbook()
+            
+            # Remove default sheet
+            if 'Sheet' in wb.sheetnames:
+                wb.remove(wb['Sheet'])
+            
+            # ===== SHEET 1: Equipment Data =====
+            ws_eq = wb.create_sheet("Equipment", 0)
+            
+            header_fill = PatternFill(start_color="4472C4", end_color="4472C4", fill_type="solid")
+            header_font = Font(bold=True, color="FFFFFF", size=11)
+            border = Border(
+                left=Side(style='thin'),
+                right=Side(style='thin'),
+                top=Side(style='thin'),
+                bottom=Side(style='thin')
+            )
+            
+            columns_eq = [
+                "Equipment ID", "Nama", "Lab", "Jumlah", "Merk", "Type", "BoM",
+                "Harga Satuan", "Harga Total", "Kategori", "Status", "Keterangan"
+            ]
+            
+            for col_num, col_name in enumerate(columns_eq, 1):
+                cell = ws_eq.cell(row=1, column=col_num)
+                cell.value = col_name
+                cell.fill = header_fill
+                cell.font = header_font
+                cell.border = border
+                ws_eq.column_dimensions[chr(64 + col_num)].width = 15
+            
+            for row_num, eq in enumerate(equipment_list, 2):
+                ws_eq.cell(row=row_num, column=1).value = eq.get('equipment_id', '')
+                ws_eq.cell(row=row_num, column=2).value = eq.get('nama', '')
+                ws_eq.cell(row=row_num, column=3).value = eq.get('lab_id', '')
+                ws_eq.cell(row=row_num, column=4).value = float(eq.get('jumlah', 0))
+                ws_eq.cell(row=row_num, column=5).value = eq.get('merk', '')
+                ws_eq.cell(row=row_num, column=6).value = eq.get('type', '')
+                ws_eq.cell(row=row_num, column=7).value = eq.get('bom', '')
+                ws_eq.cell(row=row_num, column=8).value = float(eq.get('harga_satuan', 0))
+                ws_eq.cell(row=row_num, column=9).value = float(eq.get('harga_keseluruhan', 0))
+                ws_eq.cell(row=row_num, column=10).value = eq.get('kategori', '')
+                ws_eq.cell(row=row_num, column=11).value = eq.get('status', '')
+                ws_eq.cell(row=row_num, column=12).value = eq.get('keterangan', '')
+                
+                for col_num in [4, 8, 9]:
+                    ws_eq.cell(row=row_num, column=col_num).number_format = '#,##0.00'
+            
+            # ===== SHEET 2: Consumption Report =====
+            ws_cons = wb.create_sheet("Consumption Report", 1)
+            
+            ws_cons.merge_cells('A1:F1')
+            title_cell = ws_cons['A1']
+            title_cell.value = "Laporan Konsumsi Equipment"
+            title_cell.font = Font(bold=True, size=14, color="FFFFFF")
+            title_cell.fill = PatternFill(start_color="70AD47", end_color="70AD47", fill_type="solid")
+            
+            ws_cons.merge_cells('A2:F2')
+            date_cell = ws_cons['A2']
+            date_cell.value = f"Tanggal: {datetime.now().strftime('%d %B %Y')}"
+            date_cell.font = Font(italic=True, size=10)
+            
+            headers_cons = ["Equipment ID", "Nama", "Lab", "Total Dikonsumsi", "Terakhir Dikonsumsi", "Jumlah Movements"]
+            header_fill_cons = PatternFill(start_color="70AD47", end_color="70AD47", fill_type="solid")
+            
+            for col_num, header in enumerate(headers_cons, 1):
+                cell = ws_cons.cell(row=4, column=col_num)
+                cell.value = header
+                cell.fill = header_fill_cons
+                cell.font = Font(bold=True, color="FFFFFF")
+                cell.border = border
+            
+            for row_num, (eq_id, data) in enumerate(consumption_data.items(), 5):
+                ws_cons.cell(row=row_num, column=1).value = eq_id
+                ws_cons.cell(row=row_num, column=2).value = data.get('equipment_name', '')
+                ws_cons.cell(row=row_num, column=3).value = data.get('lab_id', '')
+                ws_cons.cell(row=row_num, column=4).value = abs(float(data.get('total_consumed', 0)))
+                ws_cons.cell(row=row_num, column=5).value = data.get('last_consumption', '')
+                ws_cons.cell(row=row_num, column=6).value = len(data.get('movements', []))
+            
+            # ===== SHEET 3: Movement History =====
+            if movements_data:
+                ws_mov = wb.create_sheet("Movement History", 2)
+                
+                headers_mov = ["Tanggal", "Equipment ID", "Lab", "Tipe", "Quantity", "Catatan"]
+                header_fill_mov = PatternFill(start_color="FFC000", end_color="FFC000", fill_type="solid")
+                
+                for col_num, header in enumerate(headers_mov, 1):
+                    cell = ws_mov.cell(row=1, column=col_num)
+                    cell.value = header
+                    cell.fill = header_fill_mov
+                    cell.font = Font(bold=True, color="FFFFFF")
+                    cell.border = border
+                    ws_mov.column_dimensions[chr(64 + col_num)].width = 15
+                
+                for row_num, mov in enumerate(movements_data, 2):
+                    ws_mov.cell(row=row_num, column=1).value = mov.get('date', '')
+                    ws_mov.cell(row=row_num, column=2).value = mov.get('equipment_id', '')
+                    ws_mov.cell(row=row_num, column=3).value = mov.get('lab_id', '')
+                    ws_mov.cell(row=row_num, column=4).value = mov.get('movement_type', '')
+                    ws_mov.cell(row=row_num, column=5).value = mov.get('quantity', 0)
+                    ws_mov.cell(row=row_num, column=6).value = mov.get('notes', '')
+            
+            # Save to bytes
+            output = BytesIO()
+            wb.save(output)
+            output.seek(0)
+            return output.getvalue()
+            
+        except Exception as e:
+            print(f"Error exporting all data: {e}")
+            return None

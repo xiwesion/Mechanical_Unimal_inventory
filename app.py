@@ -25,7 +25,7 @@ from utils.constants import (
     MOVEMENT_TYPES, COLOR_PALETTE, THEME_COLORS, THEME_OPTIONS,
     DATE_FORMAT, DISPLAY_DATE_FORMAT, DISPLAY_DATETIME_FORMAT
 )
-from utils.helpers import inject_custom_css
+from utils.helpers import inject_custom_css, init_stats_cache, calculate_realtime_stats, get_cached_stats, mark_stats_stale, refresh_stats_immediately
 
 # ============================================================================
 # PAGE CONFIGURATION
@@ -69,6 +69,10 @@ if 'inventory_manager' not in st.session_state:
     st.session_state.inventory_manager = InventoryManager()
 if 'template_handler' not in st.session_state:
     st.session_state.template_handler = TemplateHandler()
+
+# Initialize realtime stats cache
+init_stats_cache()
+realtime_stats = calculate_realtime_stats()
 
 # ============================================================================
 # SIDEBAR NAVIGATION & THEME SELECTOR
@@ -123,41 +127,40 @@ with st.sidebar:
 if page == "📊 Dashboard":
     st.header("📊 Dashboard Inventory")
     
+    # Auto-refresh stats every render
+    cached_stats = get_cached_stats()
+    
     col1, col2, col3, col4 = st.columns(4)
     
-    # Get statistics
+    # Get labs for count
     labs = st.session_state.lab_manager.get_all_labs()
-    equipment_list = st.session_state.equipment_manager.get_all_equipment()
-    stats = st.session_state.equipment_manager.get_statistics()
-    stock_summary = st.session_state.inventory_manager.get_stock_summary()
     
     with col1:
         st.metric(
             label="🏭 Total Lab",
             value=len(labs),
-            delta="4 labs"
+            delta="Active Labs"
         )
     
     with col2:
         st.metric(
-            label="🔧 Equipment",
-            value=len(equipment_list),
-            delta=f"Total {stats.get('total_equipment', 0)}"
+            label="🔧 Total Equipment",
+            value=cached_stats['total_equipment'],
+            delta="Registered"
         )
     
     with col3:
         st.metric(
             label="📦 Total Items",
-            value=f"{int(stock_summary.get('total_items', 0))}",
-            delta="Current Stock"
+            value=f"{cached_stats['total_items']}",
+            delta="Units in Stock"
         )
     
     with col4:
-        total_value = stock_summary.get('total_value', 0)
         st.metric(
             label="💰 Total Value",
-            value=f"Rp {total_value:,.0f}",
-            delta="Estimated"
+            value=f"Rp {cached_stats['total_value']:,.0f}",
+            delta="Estimated Value"
         )
     
     st.markdown("---")
@@ -203,6 +206,7 @@ if page == "📊 Dashboard":
     # Equipment Status Distribution
     st.subheader("📈 Status Distribution")
     
+    stats = st.session_state.equipment_manager.get_statistics()
     status_data = stats.get('by_status', {})
     if status_data:
         col1, col2 = st.columns(2)
@@ -373,13 +377,14 @@ elif page == "🏭 Lab Management":
 elif page == "🔧 Equipment Management":
     st.header("🔧 Equipment Management")
     
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
         "📋 View Equipment", 
         "➕ Add Equipment", 
         "📥 Import Equipment", 
         "📊 Search",
         "🗑️ Delete Equipment",
-        "🔄 Edit Status"
+        "🔄 Edit Status",
+        "✏️ Edit Keterangan"
     ])
     
     # Tab 1: View Equipment
@@ -531,6 +536,9 @@ elif page == "🔧 Equipment Management":
                             eq_id = st.session_state.equipment_manager.add_equipment(selected_lab, equipment_data)
                             
                             if eq_id:
+                                # Refresh realtime stats after adding equipment
+                                from utils.helpers import refresh_stats_immediately
+                                refresh_stats_immediately()
                                 st.success(f"✅ Equipment '{nama}' berhasil ditambahkan!")
                             else:
                                 st.error("❌ Gagal menambahkan equipment!")
@@ -583,6 +591,7 @@ elif page == "🔧 Equipment Management":
                             st.subheader("Data yang Diimport:")
                             import_df = pd.DataFrame(imported)
                             st.dataframe(import_df, use_container_width=True, hide_index=True)
+                            refresh_stats_immediately()
                             st.rerun()
                     else:
                         st.error(f"❌ {message}")
@@ -643,6 +652,7 @@ elif page == "🔧 Equipment Management":
                 if st.button("🗑️ Hapus Equipment Ini", use_container_width=True, type="secondary"):
                     try:
                         st.session_state.equipment_manager.delete_equipment(selected_equipment)
+                        refresh_stats_immediately()
                         st.success(f"✅ Equipment '{eq.get('nama')}' berhasil dihapus!")
                         st.rerun()
                     except Exception as e:
@@ -711,12 +721,68 @@ elif page == "🔧 Equipment Management":
                     try:
                         eq.update({'status': new_status})
                         st.session_state.equipment_manager.update_equipment(selected_equipment, eq)
+                        refresh_stats_immediately()
                         st.success(f"✅ Status equipment berhasil diubah menjadi: {new_status.upper()}")
                         if keterangan:
                             st.info(f"📝 Catatan: {keterangan}")
                         st.rerun()
                     except Exception as e:
                         st.error(f"❌ Error: {str(e)}")
+        else:
+            st.info("ℹ️ Belum ada equipment yang terdaftar.")
+    
+    # Tab 7: Edit Keterangan Equipment
+    with tab7:
+        st.subheader("✏️ Edit Keterangan Equipment")
+        
+        equipment_list = st.session_state.equipment_manager.get_all_equipment()
+        if equipment_list:
+            selected_equipment = st.selectbox(
+                "Pilih Equipment*",
+                options=[eq.get('equipment_id') for eq in equipment_list],
+                format_func=lambda x: next((f"{eq.get('nama')} - {eq.get('lab_id')}" 
+                                          for eq in equipment_list if eq.get('equipment_id') == x), x),
+                key="edit_keterangan_equipment"
+            )
+            
+            eq = st.session_state.equipment_manager.get_equipment(selected_equipment)
+            if eq:
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.write(f"**Nama:** {eq.get('nama')}")
+                    st.write(f"**Lab:** {eq.get('lab_id')}")
+                with col2:
+                    st.write(f"**Status:** {eq.get('status', 'active').upper()}")
+                    st.write(f"**Qty:** {int(eq.get('jumlah', 0))}")
+                
+                st.divider()
+                
+                current_keterangan = eq.get('keterangan', '')
+                
+                with st.form(f"edit_keterangan_form_{selected_equipment}", clear_on_submit=True):
+                    new_keterangan = st.text_area(
+                        "Keterangan Equipment*",
+                        value=current_keterangan,
+                        placeholder="Contoh: Kondisi baik, Rusak sebagian, Perlu perbaikan, dll",
+                        height=100,
+                        help="Masukkan deskripsi kondisi atau informasi tambahan tentang equipment ini",
+                        key="keterangan_input"
+                    )
+                    
+                    if st.form_submit_button("💾 Simpan Keterangan", use_container_width=True):
+                        try:
+                            eq_update = eq.copy()
+                            eq_update['keterangan'] = new_keterangan
+                            success = st.session_state.equipment_manager.update_equipment(selected_equipment, eq_update)
+                            
+                            if success:
+                                refresh_stats_immediately()
+                                st.success(f"✅ Keterangan equipment berhasil diperbarui!")
+                                st.info(f"📝 Keterangan: {new_keterangan}")
+                            else:
+                                st.error(f"❌ Gagal menyimpan keterangan")
+                        except Exception as e:
+                            st.error(f"❌ Error: {str(e)}")
         else:
             st.info("ℹ️ Belum ada equipment yang terdaftar.")
 
@@ -737,13 +803,25 @@ elif page == "📤 Inventory Adjustment":
         if not labs:
             st.warning("⚠️ Belum ada lab yang terdaftar.")
         else:
+            # Initialize session state for equipment list
+            if 'in_selected_lab' not in st.session_state:
+                st.session_state.in_selected_lab = None
+            if 'in_equipment_list' not in st.session_state:
+                st.session_state.in_equipment_list = []
+            
             with st.form("in_movement_form", clear_on_submit=True):
                 selected_lab = st.selectbox(
                     "Pilih Lab*",
                     options=[lab.get('lab_id') for lab in labs],
                     format_func=lambda x: next((lab.get('name') for lab in labs if lab.get('lab_id') == x), x),
-                    key="in_lab"
+                    key="in_lab",
+                    help="Pilih lab tempat barang masuk"
                 )
+                
+                # Store selected lab in session state
+                if selected_lab != st.session_state.in_selected_lab:
+                    st.session_state.in_selected_lab = selected_lab
+                    st.session_state.in_equipment_list = []
                 
                 # Get equipment for selected lab
                 equipment_list = st.session_state.equipment_manager.get_equipment_by_lab(selected_lab)
@@ -753,20 +831,35 @@ elif page == "📤 Inventory Adjustment":
                         "Pilih Equipment*",
                         options=[eq.get('equipment_id') for eq in equipment_list],
                         format_func=lambda x: next((eq.get('nama') for eq in equipment_list if eq.get('equipment_id') == x), x),
-                        help="Equipment mana yang akan ditambahkan/masuk"
+                        help="Equipment mana yang akan ditambahkan/masuk",
+                        key="in_equipment_select"
                     )
                     
-                    quantity = st.number_input(
-                        "Jumlah Masuk*", 
-                        min_value=0.0, 
-                        step=1.0, 
-                        value=0.0,
-                        help="Berapa jumlah unit yang masuk/ditambahkan"
-                    )
+                    # Add date input
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        adjustment_date = st.date_input(
+                            "Tanggal Masuk*",
+                            value=pd.Timestamp.now().date(),
+                            help="Tanggal barang masuk ke lab",
+                            key="in_date"
+                        )
+                    
+                    with col2:
+                        quantity = st.number_input(
+                            "Jumlah Masuk*", 
+                            min_value=0.0, 
+                            step=1.0, 
+                            value=0.0,
+                            help="Berapa jumlah unit yang masuk/ditambahkan",
+                            key="in_qty"
+                        )
+                    
                     notes = st.text_area(
                         "Catatan", 
                         height=80,
-                        help="Catatan tambahan tentang barang yang masuk (opsional)"
+                        help="Catatan tambahan tentang barang yang masuk (opsional)",
+                        key="in_notes"
                     )
                     
                     submitted = st.form_submit_button("✅ Catat Barang Masuk", use_container_width=True)
@@ -775,9 +868,10 @@ elif page == "📤 Inventory Adjustment":
                         if quantity > 0:
                             try:
                                 st.session_state.equipment_manager.adjust_quantity(
-                                    selected_equipment, quantity, notes, "in"
+                                    selected_equipment, quantity, notes, "in", adjustment_date=adjustment_date
                                 )
-                                st.success(f"✅ Berhasil mencatat {quantity} barang masuk!")
+                                refresh_stats_immediately()
+                                st.success(f"✅ Berhasil mencatat {quantity} barang masuk pada {adjustment_date.strftime('%d-%m-%Y')}!")
                             except Exception as e:
                                 st.error(f"❌ Error: {str(e)}")
                         else:
@@ -793,13 +887,25 @@ elif page == "📤 Inventory Adjustment":
         if not labs:
             st.warning("⚠️ Belum ada lab yang terdaftar.")
         else:
+            # Initialize session state for equipment list
+            if 'out_selected_lab' not in st.session_state:
+                st.session_state.out_selected_lab = None
+            if 'out_equipment_list' not in st.session_state:
+                st.session_state.out_equipment_list = []
+            
             with st.form("out_movement_form", clear_on_submit=True):
                 selected_lab = st.selectbox(
                     "Pilih Lab*",
                     options=[lab.get('lab_id') for lab in labs],
                     format_func=lambda x: next((lab.get('name') for lab in labs if lab.get('lab_id') == x), x),
-                    key="out_lab"
+                    key="out_lab",
+                    help="Pilih lab dari mana barang keluar"
                 )
+                
+                # Store selected lab in session state
+                if selected_lab != st.session_state.out_selected_lab:
+                    st.session_state.out_selected_lab = selected_lab
+                    st.session_state.out_equipment_list = []
                 
                 equipment_list = st.session_state.equipment_manager.get_equipment_by_lab(selected_lab)
                 
@@ -808,7 +914,8 @@ elif page == "📤 Inventory Adjustment":
                         "Pilih Equipment*",
                         options=[eq.get('equipment_id') for eq in equipment_list],
                         format_func=lambda x: next((eq.get('nama') for eq in equipment_list if eq.get('equipment_id') == x), x),
-                        key="out_eq"
+                        key="out_eq",
+                        help="Equipment mana yang akan keluar"
                     )
                     
                     # Get current quantity
@@ -817,25 +924,39 @@ elif page == "📤 Inventory Adjustment":
                     
                     st.info(f"💾 Stok Saat Ini: {int(current_qty)} unit")
                     
-                    quantity = st.number_input(
-                        "Jumlah Keluar*",
-                        min_value=0.0,
-                        max_value=current_qty,
-                        step=1.0,
-                        value=0.0,
-                        help="Berapa jumlah unit yang akan keluar (tidak boleh melebihi stok saat ini)"
-                    )
+                    # Add date input
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        adjustment_date = st.date_input(
+                            "Tanggal Keluar*",
+                            value=pd.Timestamp.now().date(),
+                            help="Tanggal barang keluar dari lab",
+                            key="out_date"
+                        )
+                    
+                    with col2:
+                        quantity = st.number_input(
+                            "Jumlah Keluar*",
+                            min_value=0.0,
+                            max_value=current_qty,
+                            step=1.0,
+                            value=0.0,
+                            help="Berapa jumlah unit yang akan keluar (tidak boleh melebihi stok saat ini)",
+                            key="out_qty"
+                        )
                     
                     reason = st.selectbox(
                         "Alasan",
                         ["Penggunaan/Praktikum", "Hilang", "Rusak", "Perbaikan", "Lainnya"],
-                        help="Pilih alasan barang keluar dari lab"
+                        help="Pilih alasan barang keluar dari lab",
+                        key="out_reason"
                     )
                     
                     notes = st.text_area(
                         "Catatan Detail", 
                         height=80,
-                        help="Keterangan detail tentang penggunaan atau keadaan barang yang keluar"
+                        help="Keterangan detail tentang penggunaan atau keadaan barang yang keluar",
+                        key="out_notes"
                     )
                     
                     submitted = st.form_submit_button("✅ Catat Barang Keluar", use_container_width=True)
@@ -845,9 +966,10 @@ elif page == "📤 Inventory Adjustment":
                             try:
                                 full_notes = f"{reason}: {notes}" if notes else reason
                                 st.session_state.equipment_manager.adjust_quantity(
-                                    selected_equipment, -quantity, full_notes, "out"
+                                    selected_equipment, -quantity, full_notes, "out", adjustment_date=adjustment_date
                                 )
-                                st.success(f"✅ Berhasil mencatat {quantity} barang keluar!")
+                                refresh_stats_immediately()
+                                st.success(f"✅ Berhasil mencatat {quantity} barang keluar pada {adjustment_date.strftime('%d-%m-%Y')}!")
                             except Exception as e:
                                 st.error(f"❌ Error: {str(e)}")
                         else:
@@ -875,10 +997,17 @@ elif page == "📤 Inventory Adjustment":
             # Create dataframe
             df_data = []
             for m in movements:
-                eq = st.session_state.equipment_manager.get_equipment(m.get('equipment_id'))
+                # Use stored equipment_name from movement record if available
+                equipment_name = m.get('equipment_name', '')
+                if not equipment_name:
+                    # Fallback: lookup from equipment_manager
+                    eq = st.session_state.equipment_manager.get_equipment(m.get('equipment_id'))
+                    equipment_name = eq.get('nama', 'N/A') if eq else 'N/A'
+                
                 df_data.append({
                     'Tanggal': m.get('date', '')[:10],
-                    'Equipment': eq.get('nama', 'N/A') if eq else 'N/A',
+                    'Equipment': equipment_name,
+                    'Lab': m.get('lab_id', '-'),
                     'Tipe': m.get('movement_type', '-').upper(),
                     'Qty': int(m.get('quantity', 0)),
                     'Catatan': m.get('notes', '')[:50]
@@ -1007,14 +1136,28 @@ elif page == "📈 Reports & Analytics":
                 # Create dataframe
                 df_data = []
                 for eq_id, data in depletion_report.items():
-                    eq = st.session_state.equipment_manager.get_equipment(eq_id)
+                    # Try to get equipment name from multiple sources
+                    equipment_name = data.get('equipment_name', '')  # From stored data
+                    
+                    if not equipment_name:
+                        # Fallback: lookup from equipment_manager
+                        eq = st.session_state.equipment_manager.get_equipment(eq_id)
+                        equipment_name = eq.get('nama', 'N/A') if eq else 'N/A'
+                    
+                    # If still not found, try from stored movements
+                    if equipment_name == 'N/A' and data.get('movements'):
+                        first_movement = data.get('movements')[0]
+                        equipment_name = first_movement.get('equipment_name', 'N/A')
+                    
                     df_data.append({
-                        'Equipment': eq.get('nama', 'N/A') if eq else 'N/A',
+                        'Equipment': equipment_name,
                         'Lab': data.get('lab_id', '-'),
                         'Jumlah Dikonsumsi': int(abs(data.get('total_consumed', 0))),
                         'Terakhir': data.get('last_consumption', '')[:10],
                         'Movements': len(data.get('movements', []))
                     })
+                    # Add equipment_name to report for export (use the resolved name)
+                    data['equipment_name'] = equipment_name
                 
                 if df_data:
                     df = pd.DataFrame(df_data)
@@ -1052,34 +1195,72 @@ elif page == "📈 Reports & Analytics":
             st.write("")
         
         if st.button("📥 Prepare Export", use_container_width=True):
-            if export_type == "Equipment Data":
-                equipment_list = st.session_state.equipment_manager.get_all_equipment()
-                excel_bytes = st.session_state.template_handler.export_equipment(equipment_list)
+            try:
+                if export_type == "Equipment Data":
+                    equipment_list = st.session_state.equipment_manager.get_all_equipment()
+                    if equipment_list:
+                        excel_bytes = st.session_state.template_handler.export_equipment(equipment_list)
+                        
+                        if excel_bytes:
+                            st.download_button(
+                                label="⬇️ Download Equipment Data",
+                                data=excel_bytes,
+                                file_name=f"equipment_data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
+                                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                            )
+                            st.success("✅ File siap diunduh!")
+                    else:
+                        st.info("ℹ️ Belum ada equipment data untuk diexport")
                 
-                if excel_bytes:
-                    st.download_button(
-                        label="⬇️ Download Equipment Data",
-                        data=excel_bytes,
-                        file_name=f"equipment_data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
-                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                    )
-                    st.success("✅ File siap diunduh!")
-            
-            elif export_type == "Consumption Data":
-                depletion_report = st.session_state.inventory_manager.get_depletion_report()
-                excel_bytes = st.session_state.template_handler.export_consumption_report(
-                    depletion_report,
-                    lab_name="All Labs"
-                )
+                elif export_type == "Consumption Data":
+                    depletion_report = st.session_state.inventory_manager.get_depletion_report()
+                    
+                    if depletion_report:
+                        excel_bytes = st.session_state.template_handler.export_consumption_report(
+                            depletion_report,
+                            lab_name="All Labs"
+                        )
+                        
+                        if excel_bytes:
+                            st.download_button(
+                                label="⬇️ Download Consumption Data",
+                                data=excel_bytes,
+                                file_name=f"consumption_data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
+                                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                            )
+                            st.success("✅ File siap diunduh!")
+                    else:
+                        st.info("ℹ️ Belum ada data konsumsi untuk diexport")
                 
-                if excel_bytes:
-                    st.download_button(
-                        label="⬇️ Download Consumption Data",
-                        data=excel_bytes,
-                        file_name=f"consumption_data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
-                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                    )
-                    st.success("✅ File siap diunduh!")
+                elif export_type == "All Data":
+                    equipment_list = st.session_state.equipment_manager.get_all_equipment()
+                    depletion_report = st.session_state.inventory_manager.get_depletion_report()
+                    movements_data = st.session_state.inventory_manager.movements
+                    
+                    # Add equipment names to depletion report
+                    for eq_id, data in depletion_report.items():
+                        eq = st.session_state.equipment_manager.get_equipment(eq_id)
+                        data['equipment_name'] = eq.get('nama', 'N/A') if eq else 'N/A'
+                    
+                    if equipment_list or depletion_report:
+                        excel_bytes = st.session_state.template_handler.export_all_data(
+                            equipment_list,
+                            depletion_report,
+                            movements_data
+                        )
+                        
+                        if excel_bytes:
+                            st.download_button(
+                                label="⬇️ Download All Data",
+                                data=excel_bytes,
+                                file_name=f"all_data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
+                                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                            )
+                            st.success("✅ File siap diunduh!")
+                    else:
+                        st.info("ℹ️ Belum ada data untuk diexport")
+            except Exception as e:
+                st.error(f"❌ Error saat menyiapkan export: {str(e)}")
 
 # ============================================================================
 # PAGE: SETTINGS

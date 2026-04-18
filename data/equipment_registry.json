@@ -1,1 +1,579 @@
-{}
+{
+  "b885878a": {
+    "nama": "Pelumas Anti Karat",
+    "jumlah": 8.0,
+    "merk": "WD",
+    "type": "Megacools 500ml",
+    "bom": "Buah",
+    "harga_satuan": 45000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "active",
+    "harga_keseluruhan": 360000.0,
+    "equipment_id": "b885878a",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.852509",
+    "last_modified": "2026-04-19T00:19:05.575878",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.852525",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      },
+      {
+        "date": "2026-04-19T23:59:59",
+        "quantity": 8.0,
+        "change": 3.0,
+        "type": "in",
+        "notes": ""
+      }
+    ]
+  },
+  "18f00c2b": {
+    "nama": "Contact Cleaner",
+    "jumlah": 5.0,
+    "merk": "Megacools",
+    "type": "IWAKI Picnometer Calibrated 25 ml",
+    "bom": "Buah",
+    "harga_satuan": 30000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 150000.0,
+    "equipment_id": "18f00c2b",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.855685",
+    "last_modified": "2026-04-16T10:44:44.855699",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.855712",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "a732c8ae": {
+    "nama": "Piknometer",
+    "jumlah": 2.0,
+    "merk": "IWAKI",
+    "type": "IWAKI Picnometer Calibrated 10 ml",
+    "bom": "pcs",
+    "harga_satuan": 483000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 966000.0,
+    "equipment_id": "a732c8ae",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.860563",
+    "last_modified": "2026-04-16T10:44:44.860576",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.860581",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "35c0ac61": {
+    "nama": "Piknometer",
+    "jumlah": 2.0,
+    "merk": "IWAKI",
+    "type": "Joyko L 500",
+    "bom": "pcs",
+    "harga_satuan": 449000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 898000.0,
+    "equipment_id": "35c0ac61",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.865138",
+    "last_modified": "2026-04-16T10:44:44.865155",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.865166",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "c39082f5": {
+    "nama": "Cutter Besar",
+    "jumlah": 4.0,
+    "merk": "Joyko",
+    "type": "Joyko L 501",
+    "bom": "pcs",
+    "harga_satuan": 8700.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 34800.0,
+    "equipment_id": "c39082f5",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.869561",
+    "last_modified": "2026-04-19T00:11:05.423740",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.869578",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      },
+      {
+        "date": "2026-04-19T23:59:59",
+        "quantity": 4.0,
+        "change": -1.0,
+        "type": "out",
+        "notes": "Penggunaan/Praktikum"
+      }
+    ]
+  },
+  "767e61e1": {
+    "nama": "Isi Cutter",
+    "jumlah": 8.0,
+    "merk": "Joyko",
+    "type": "Joyko SC-828",
+    "bom": "kotak",
+    "harga_satuan": 5500.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 44000.0,
+    "equipment_id": "767e61e1",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.873883",
+    "last_modified": "2026-04-19T00:12:15.998025",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.873901",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      },
+      {
+        "date": "2026-04-15T23:59:59",
+        "quantity": 3.0,
+        "change": -2.0,
+        "type": "out",
+        "notes": "Penggunaan/Praktikum"
+      },
+      {
+        "date": "2026-04-19T23:59:59",
+        "quantity": 8.0,
+        "change": 5.0,
+        "type": "in",
+        "notes": ""
+      }
+    ]
+  },
+  "ff8af74d": {
+    "nama": "Gunting",
+    "jumlah": 3.0,
+    "merk": "Joyko",
+    "type": "Kertas Stiker Glossy Sticker Paper A4 by e-Print",
+    "bom": "pcs",
+    "harga_satuan": 12700.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 38100.0,
+    "equipment_id": "ff8af74d",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.879211",
+    "last_modified": "2026-04-19T00:11:21.958744",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.879235",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      },
+      {
+        "date": "2026-04-19T23:59:59",
+        "quantity": 3.0,
+        "change": -2.0,
+        "type": "out",
+        "notes": "Penggunaan/Praktikum"
+      }
+    ]
+  },
+  "7d6be32b": {
+    "nama": "Kertas Sticker",
+    "jumlah": 5.0,
+    "merk": "",
+    "type": "Kertas Concorde A4 220gr isi 50 lembar / Kertas Sertifikat - Putih",
+    "bom": "pack",
+    "harga_satuan": 40000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 200000.0,
+    "equipment_id": "7d6be32b",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.885317",
+    "last_modified": "2026-04-16T10:44:44.885332",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.885340",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "8b13f919": {
+    "nama": "Kertas Sertifikat",
+    "jumlah": 1.0,
+    "merk": "",
+    "type": "5 Inch",
+    "bom": "pack",
+    "harga_satuan": 48000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 48000.0,
+    "equipment_id": "8b13f919",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.889827",
+    "last_modified": "2026-04-16T10:44:44.889841",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.889850",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "0b3a0bb6": {
+    "nama": "Kuas",
+    "jumlah": 10.0,
+    "merk": "",
+    "type": "Density Test Range \n1.600 - 1.700 / 1600-1700 \nAlla France",
+    "bom": "pcs",
+    "harga_satuan": 7000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 70000.0,
+    "equipment_id": "0b3a0bb6",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.896164",
+    "last_modified": "2026-04-16T10:44:44.896178",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.896187",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "815a76a8": {
+    "nama": "Hidrometer",
+    "jumlah": 2.0,
+    "merk": "",
+    "type": "JOLLY Facial 250s \n(Bundling isi 4)",
+    "bom": "pcs",
+    "harga_satuan": 295000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 590000.0,
+    "equipment_id": "815a76a8",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.901066",
+    "last_modified": "2026-04-16T10:44:44.901078",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.901084",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "45480cb1": {
+    "nama": "Tissue",
+    "jumlah": 5.0,
+    "merk": "JOLLY",
+    "type": "duckbill isi 50 pcs original",
+    "bom": "pack",
+    "harga_satuan": 32000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 160000.0,
+    "equipment_id": "45480cb1",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.906291",
+    "last_modified": "2026-04-16T10:44:44.906303",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.906309",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "b5c4a1e0": {
+    "nama": "Masker",
+    "jumlah": 5.0,
+    "merk": "",
+    "type": "Kabel Rol 50M",
+    "bom": "kotak",
+    "harga_satuan": 40000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 200000.0,
+    "equipment_id": "b5c4a1e0",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.912487",
+    "last_modified": "2026-04-16T10:44:44.912500",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.912505",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "12291b72": {
+    "nama": "Cok sambung",
+    "jumlah": 1.0,
+    "merk": "PHILMAX ECO",
+    "type": "PORSTEX BIRU 1 LITER",
+    "bom": "pcs",
+    "harga_satuan": 950000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 950000.0,
+    "equipment_id": "12291b72",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.918856",
+    "last_modified": "2026-04-16T10:44:44.918867",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.918872",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "13340c2f": {
+    "nama": "Porstex",
+    "jumlah": 5.0,
+    "merk": "PORSTEX",
+    "type": "Baterai Panasonic CR2032 \nOriginal / Panasonic \nCR 2032 Original",
+    "bom": "botol",
+    "harga_satuan": 23000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 115000.0,
+    "equipment_id": "13340c2f",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.927420",
+    "last_modified": "2026-04-16T10:44:44.927434",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.927440",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "c19f032e": {
+    "nama": "Baterai CR 2032",
+    "jumlah": 10.0,
+    "merk": "Panasonic",
+    "type": "pp plastik Pocket A4/F4 isi 50 Daichi",
+    "bom": "pcs",
+    "harga_satuan": 10000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 100000.0,
+    "equipment_id": "c19f032e",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.933911",
+    "last_modified": "2026-04-16T10:44:44.933924",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.933928",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "f0f8227f": {
+    "nama": "Plastik dokumen",
+    "jumlah": 1.0,
+    "merk": "",
+    "type": "ONEMED - Sarung Tangan Medis Latex POWDERED | Medical Examination Gloves PP - XS",
+    "bom": "pack",
+    "harga_satuan": 50500.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 50500.0,
+    "equipment_id": "f0f8227f",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.940800",
+    "last_modified": "2026-04-16T10:44:44.940831",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.940836",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "07e25185": {
+    "nama": "Sarung Tangan Latex",
+    "jumlah": 0.0,
+    "merk": "ONEMED",
+    "type": "Kemoceng Serbaguna untuk Pembersihan Rumah",
+    "bom": "kotak",
+    "harga_satuan": 47000.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "depleted",
+    "harga_keseluruhan": 0.0,
+    "equipment_id": "07e25185",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.950348",
+    "last_modified": "2026-04-19T00:26:29.623172",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.950365",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      },
+      {
+        "date": "2026-04-19T23:59:59",
+        "quantity": 0.0,
+        "change": -2.0,
+        "type": "out",
+        "notes": "Penggunaan/Praktikum"
+      }
+    ]
+  },
+  "efa196ed": {
+    "nama": "Kemoceng",
+    "jumlah": 20.0,
+    "merk": "",
+    "type": "",
+    "bom": "pcs",
+    "harga_satuan": 8500.0,
+    "kategori": "Bahan habis pakai",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 170000.0,
+    "equipment_id": "efa196ed",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-16T10:44:44.956914",
+    "last_modified": "2026-04-19T00:26:16.953941",
+    "quantity_history": [
+      {
+        "date": "2026-04-16T10:44:44.956930",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      },
+      {
+        "date": "2026-04-19T23:59:59",
+        "quantity": 20.0,
+        "change": 10.0,
+        "type": "in",
+        "notes": ""
+      }
+    ]
+  },
+  "6fd091ca": {
+    "nama": "Mesin Bubut",
+    "jumlah": 2.0,
+    "merk": "TOKOTA",
+    "type": "CNC",
+    "bom": "M01",
+    "harga_satuan": 50000000.0,
+    "kategori": "Mesin",
+    "keterangan": "Kondisi baik",
+    "status": "aktif",
+    "harga_keseluruhan": 100000000.0,
+    "equipment_id": "6fd091ca",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-18T22:19:35.154704",
+    "last_modified": "2026-04-18T22:19:35.154719",
+    "quantity_history": [
+      {
+        "date": "2026-04-18T22:19:35.154724",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "0bd79607": {
+    "nama": "Alat Ukur Digital",
+    "jumlah": 5.0,
+    "merk": "Mitutoyo",
+    "type": "Caliper",
+    "bom": "M02",
+    "harga_satuan": 250000.0,
+    "kategori": "Alat Ukur",
+    "keterangan": "",
+    "status": "aktif",
+    "harga_keseluruhan": 1250000.0,
+    "equipment_id": "0bd79607",
+    "lab_id": "teknik_mesin",
+    "created_date": "2026-04-18T22:19:35.163932",
+    "last_modified": "2026-04-18T22:19:35.163946",
+    "quantity_history": [
+      {
+        "date": "2026-04-18T22:19:35.163952",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "d19aff34": {
+    "nama": "Centrifuse",
+    "jumlah": 1.0,
+    "merk": "WeTe",
+    "type": "Mesin",
+    "bom": "bks",
+    "harga_satuan": 50000000.0,
+    "harga_keseluruhan": 50000000.0,
+    "kategori": "Mesin",
+    "keterangan": "",
+    "status": "active",
+    "equipment_id": "d19aff34",
+    "lab_id": "lab_mtet",
+    "created_date": "2026-04-19T00:10:13.478257",
+    "last_modified": "2026-04-19T00:10:13.478273",
+    "quantity_history": [
+      {
+        "date": "2026-04-19T00:10:13.478281",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  }
+}

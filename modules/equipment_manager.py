@@ -153,7 +153,7 @@ class EquipmentManager:
             print(f"Error deleting equipment: {e}")
             return False
     
-    def adjust_quantity(self, equipment_id: str, qty_change: float, notes: str = "", movement_type: str = "adjustment") -> bool:
+    def adjust_quantity(self, equipment_id: str, qty_change: float, notes: str = "", movement_type: str = "adjustment", adjustment_date: str = None) -> bool:
         """
         Adjust equipment quantity (for in/out tracking)
         
@@ -162,6 +162,7 @@ class EquipmentManager:
             qty_change: Quantity change (positive for in, negative for out)
             notes: Additional notes for the movement
             movement_type: Type of movement (in, out, adjustment)
+            adjustment_date: Date of adjustment (ISO format or None for current date)
         
         Returns:
             True if successful
@@ -177,6 +178,18 @@ class EquipmentManager:
             if new_qty < 0:
                 raise ValueError("Quantity cannot be negative")
             
+            # Use provided date or current datetime
+            if adjustment_date:
+                # If date is provided, convert to ISO datetime string at end of day
+                from dateutil import parser as date_parser
+                try:
+                    parsed_date = date_parser.parse(str(adjustment_date))
+                    record_date = parsed_date.replace(hour=23, minute=59, second=59).isoformat()
+                except:
+                    record_date = datetime.now().isoformat()
+            else:
+                record_date = datetime.now().isoformat()
+            
             # Update quantity
             eq['jumlah'] = new_qty
             
@@ -189,7 +202,7 @@ class EquipmentManager:
                 eq['quantity_history'] = []
             
             eq['quantity_history'].append({
-                'date': datetime.now().isoformat(),
+                'date': record_date,
                 'quantity': new_qty,
                 'change': qty_change,
                 'type': movement_type,
@@ -209,7 +222,16 @@ class EquipmentManager:
             # Also record in inventory movements
             from modules.inventory_manager import InventoryManager
             im = InventoryManager()
-            im.record_movement(equipment_id, eq['lab_id'], movement_type, qty_change, notes)
+            im.record_movement(
+                equipment_id, 
+                eq['lab_id'], 
+                movement_type, 
+                qty_change, 
+                notes,
+                movement_date=record_date,
+                equipment_name=eq.get('nama', ''),  # Pass equipment name
+                lab_name=eq.get('lab_id', '')  # Pass lab id as lab_name for now
+            )
             
             return True
         except Exception as e:

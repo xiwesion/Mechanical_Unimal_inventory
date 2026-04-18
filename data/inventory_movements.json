@@ -43,5 +43,117 @@
     "quantity": -2.0,
     "date": "2026-04-16T09:32:41.676909",
     "notes": "Penggunaan/Praktikum"
+  },
+  {
+    "movement_id": "c42f9cf0_1776311141.623862",
+    "equipment_id": "c42f9cf0",
+    "lab_id": "teknik_mesin",
+    "movement_type": "out",
+    "quantity": -1.0,
+    "date": "2026-04-16T10:45:41.623874",
+    "notes": "Penggunaan/Praktikum: jalan"
+  },
+  {
+    "movement_id": "c42f9cf0_1776311149.164053",
+    "equipment_id": "c42f9cf0",
+    "lab_id": "teknik_mesin",
+    "movement_type": "out",
+    "quantity": -2.0,
+    "date": "2026-04-16T10:45:49.164069",
+    "notes": "Penggunaan/Praktikum"
+  },
+  {
+    "movement_id": "c42f9cf0_1776311186.453132",
+    "equipment_id": "c42f9cf0",
+    "lab_id": "teknik_mesin",
+    "movement_type": "out",
+    "quantity": -2.0,
+    "date": "2026-04-16T10:46:26.453143",
+    "notes": "Penggunaan/Praktikum"
+  },
+  {
+    "movement_id": "c42f9cf0_1776526167.459338",
+    "equipment_id": "c42f9cf0",
+    "lab_id": "teknik_mesin",
+    "movement_type": "out",
+    "quantity": -2.0,
+    "date": "2026-04-18T22:29:27.459351",
+    "notes": "Penggunaan/Praktikum"
+  },
+  {
+    "movement_id": "e5ede31c_1776526331.91144",
+    "equipment_id": "e5ede31c",
+    "lab_id": "teknik_mesin",
+    "movement_type": "out",
+    "quantity": -1.0,
+    "date": "2026-04-18T22:32:11.911452",
+    "notes": "Penggunaan/Praktikum"
+  },
+  {
+    "movement_id": "c39082f5_1776532265.455979",
+    "equipment_id": "c39082f5",
+    "lab_id": "teknik_mesin",
+    "movement_type": "out",
+    "quantity": -1.0,
+    "date": "2026-04-19T23:59:59",
+    "notes": "Penggunaan/Praktikum"
+  },
+  {
+    "movement_id": "ff8af74d_1776532281.985327",
+    "equipment_id": "ff8af74d",
+    "lab_id": "teknik_mesin",
+    "movement_type": "out",
+    "quantity": -2.0,
+    "date": "2026-04-19T23:59:59",
+    "notes": "Penggunaan/Praktikum"
+  },
+  {
+    "movement_id": "767e61e1_1776532298.686631",
+    "equipment_id": "767e61e1",
+    "lab_id": "teknik_mesin",
+    "movement_type": "out",
+    "quantity": -2.0,
+    "date": "2026-04-15T23:59:59",
+    "notes": "Penggunaan/Praktikum"
+  },
+  {
+    "movement_id": "b885878a_1776532322.422747",
+    "equipment_id": "b885878a",
+    "lab_id": "teknik_mesin",
+    "movement_type": "in",
+    "quantity": 3.0,
+    "date": "2026-04-19T23:59:59",
+    "notes": ""
+  },
+  {
+    "movement_id": "767e61e1_1776532336.043",
+    "equipment_id": "767e61e1",
+    "lab_id": "teknik_mesin",
+    "movement_type": "in",
+    "quantity": 5.0,
+    "date": "2026-04-19T23:59:59",
+    "notes": ""
+  },
+  {
+    "movement_id": "efa196ed_1776533176.976246",
+    "equipment_id": "efa196ed",
+    "lab_id": "teknik_mesin",
+    "movement_type": "in",
+    "quantity": 10.0,
+    "date": "2026-04-19T23:59:59",
+    "notes": "",
+    "equipment_name": "Kemoceng",
+    "lab_name": "teknik_mesin"
+  },
+  {
+    "movement_id": "07e25185_1776533189.655084",
+    "equipment_id": "07e25185",
+    "lab_id": "teknik_mesin",
+    "movement_type": "out",
+    "quantity": -2.0,
+    "date": "2026-04-19T23:59:59",
+    "notes": "Penggunaan/Praktikum",
+    "equipment_name": "Sarung Tangan Latex",
+    "lab_name": "teknik_mesin"
   }
 ]
