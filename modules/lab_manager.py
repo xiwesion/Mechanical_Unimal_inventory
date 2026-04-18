@@ -181,3 +181,19 @@ class LabManager:
             }
         
         return stats
+    
+    def reset_all_data(self) -> bool:
+        """
+        Reset all lab data (delete everything)
+        
+        Returns:
+            True if successful
+        """
+        try:
+            self.labs = {}
+            self._save_labs()
+            print("All labs data has been reset")
+            return True
+        except Exception as e:
+            print(f"Error resetting labs data: {e}")
+            return False

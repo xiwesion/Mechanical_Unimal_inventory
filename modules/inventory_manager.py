@@ -253,3 +253,19 @@ class InventoryManager:
             })
         
         return summary
+    
+    def reset_all_data(self) -> bool:
+        """
+        Reset all inventory movements data (delete everything)
+        
+        Returns:
+            True if successful
+        """
+        try:
+            self.movements = []
+            self._save_movements()
+            print("All inventory movements data has been reset")
+            return True
+        except Exception as e:
+            print(f"Error resetting movements data: {e}")
+            return False

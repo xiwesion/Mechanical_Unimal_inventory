@@ -276,3 +276,19 @@ class EquipmentManager:
             'by_type': by_type,
             'by_status': by_status
         }
+    
+    def reset_all_data(self) -> bool:
+        """
+        Reset all equipment data (delete everything)
+        
+        Returns:
+            True if successful
+        """
+        try:
+            self.equipment = {}
+            self._save_equipment()
+            print("All equipment data has been reset")
+            return True
+        except Exception as e:
+            print(f"Error resetting equipment data: {e}")
+            return False

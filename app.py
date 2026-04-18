@@ -7,6 +7,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
+import time
 import sys
 import os
 from io import BytesIO
@@ -1301,13 +1302,103 @@ elif page == "⚙️ Settings":
         
         with col1:
             st.write("**Export Data:**")
-            if st.button("📥 Export All Data", use_container_width=True):
-                st.info("Fitur export akan mengekspor semua data ke file Excel")
+            if st.button("📥 Export All Data", use_container_width=True, key="export_all_btn"):
+                equipment_list = st.session_state.equipment_manager.get_all_equipment()
+                depletion_report = st.session_state.inventory_manager.get_depletion_report()
+                movements_data = st.session_state.inventory_manager.movements
+                
+                # Add equipment names to depletion report
+                for eq_id, data in depletion_report.items():
+                    eq = st.session_state.equipment_manager.get_equipment(eq_id)
+                    data['equipment_name'] = eq.get('nama', 'N/A') if eq else 'N/A'
+                
+                if equipment_list or depletion_report:
+                    excel_bytes = st.session_state.template_handler.export_all_data(
+                        equipment_list,
+                        depletion_report,
+                        movements_data
+                    )
+                    
+                    if excel_bytes:
+                        st.download_button(
+                            label="⬇️ Download All Data Excel",
+                            data=excel_bytes,
+                            file_name=f"inventory_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
+                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        )
+                        st.success("✅ File siap diunduh!")
+                else:
+                    st.info("ℹ️ Belum ada data untuk diexport")
         
         with col2:
             st.write("**Database Reset:**")
-            if st.button("🗑️ Reset Database (HATI-HATI!)", use_container_width=True):
+            
+            # Initialize reset state if not exists
+            if 'show_reset_dialog' not in st.session_state:
+                st.session_state.show_reset_dialog = False
+            
+            if not st.session_state.show_reset_dialog:
+                if st.button("🗑️ Reset Database (HATI-HATI!)", use_container_width=True, key="reset_btn"):
+                    st.session_state.show_reset_dialog = True
+                    st.rerun()
+            else:
                 st.warning("⚠️ Fitur ini akan menghapus SEMUA data. Silakan backup terlebih dahulu!")
+                
+                col_backup, col_reset = st.columns(2)
+                
+                with col_backup:
+                    if st.button("📥 Backup Dulu (Export All Data)", use_container_width=True, key="backup_before_reset"):
+                        equipment_list = st.session_state.equipment_manager.get_all_equipment()
+                        depletion_report = st.session_state.inventory_manager.get_depletion_report()
+                        movements_data = st.session_state.inventory_manager.movements
+                        
+                        # Add equipment names to depletion report
+                        for eq_id, data in depletion_report.items():
+                            eq = st.session_state.equipment_manager.get_equipment(eq_id)
+                            data['equipment_name'] = eq.get('nama', 'N/A') if eq else 'N/A'
+                        
+                        if equipment_list or depletion_report:
+                            excel_bytes = st.session_state.template_handler.export_all_data(
+                                equipment_list,
+                                depletion_report,
+                                movements_data
+                            )
+                            
+                            if excel_bytes:
+                                st.download_button(
+                                    label="⬇️ Download Backup",
+                                    data=excel_bytes,
+                                    file_name=f"inventory_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
+                                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                )
+                                st.info("✅ Silakan download backup terlebih dahulu sebelum reset")
+                        
+                        st.session_state.show_reset_dialog = False
+                
+                with col_reset:
+                    if st.button("🔴 Hapus Semua Data (Tidak Bisa Dibatalkan!)", use_container_width=True, key="confirm_reset"):
+                        try:
+                            # Reset all data
+                            st.session_state.lab_manager.reset_all_data()
+                            st.session_state.equipment_manager.reset_all_data()
+                            st.session_state.inventory_manager.reset_all_data()
+                            
+                            # Clear cache
+                            refresh_stats_immediately()
+                            
+                            st.session_state.show_reset_dialog = False
+                            st.success("✅ Database berhasil direset! Semua data telah dihapus.")
+                            st.info("ℹ️ Halaman akan direload dalam 2 detik...")
+                            time.sleep(2)
+                            st.rerun()
+                        except Exception as e:
+                            st.error(f"❌ Error saat reset database: {str(e)}")
+                            st.session_state.show_reset_dialog = False
+                
+                # Cancel button
+                if st.button("❌ Batal", use_container_width=True, key="cancel_reset"):
+                    st.session_state.show_reset_dialog = False
+                    st.rerun()
     
     # Tab 3: About
     with tab3:
