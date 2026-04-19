@@ -804,36 +804,33 @@ elif page == "📤 Inventory Adjustment":
         if not labs:
             st.warning("⚠️ Belum ada lab yang terdaftar.")
         else:
-            # Initialize session state for equipment list
+            # Initialize session state
             if 'in_selected_lab' not in st.session_state:
-                st.session_state.in_selected_lab = None
-            if 'in_equipment_list' not in st.session_state:
-                st.session_state.in_equipment_list = []
+                st.session_state.in_selected_lab = labs[0].get('lab_id') if labs else None
             
-            with st.form("in_movement_form", clear_on_submit=True):
-                selected_lab = st.selectbox(
-                    "Pilih Lab*",
-                    options=[lab.get('lab_id') for lab in labs],
-                    format_func=lambda x: next((lab.get('name') for lab in labs if lab.get('lab_id') == x), x),
-                    key="in_lab",
-                    help="Pilih lab tempat barang masuk"
-                )
-                
-                # Store selected lab in session state
-                if selected_lab != st.session_state.in_selected_lab:
-                    st.session_state.in_selected_lab = selected_lab
-                    st.session_state.in_equipment_list = []
-                
-                # Get equipment for selected lab
-                equipment_list = st.session_state.equipment_manager.get_equipment_by_lab(selected_lab)
-                
-                if equipment_list:
+            # Lab selectbox OUTSIDE form to ensure proper refresh
+            selected_lab = st.selectbox(
+                "Pilih Lab*",
+                options=[lab.get('lab_id') for lab in labs],
+                format_func=lambda x: next((lab.get('name') for lab in labs if lab.get('lab_id') == x), x),
+                key="in_lab_select",
+                help="Pilih lab tempat barang masuk"
+            )
+            
+            # Update session state
+            st.session_state.in_selected_lab = selected_lab
+            
+            # Get equipment for selected lab
+            equipment_list = st.session_state.equipment_manager.get_equipment_by_lab(selected_lab)
+            
+            if equipment_list:
+                with st.form("in_movement_form", clear_on_submit=True):
                     selected_equipment = st.selectbox(
                         "Pilih Equipment*",
                         options=[eq.get('equipment_id') for eq in equipment_list],
                         format_func=lambda x: next((eq.get('nama') for eq in equipment_list if eq.get('equipment_id') == x), x),
                         help="Equipment mana yang akan ditambahkan/masuk",
-                        key="in_equipment_select"
+                        key=f"in_equipment_{selected_lab}"
                     )
                     
                     # Add date input
@@ -843,7 +840,7 @@ elif page == "📤 Inventory Adjustment":
                             "Tanggal Masuk*",
                             value=pd.Timestamp.now().date(),
                             help="Tanggal barang masuk ke lab",
-                            key="in_date"
+                            key=f"in_date_{selected_lab}"
                         )
                     
                     with col2:
@@ -853,14 +850,14 @@ elif page == "📤 Inventory Adjustment":
                             step=1.0, 
                             value=0.0,
                             help="Berapa jumlah unit yang masuk/ditambahkan",
-                            key="in_qty"
+                            key=f"in_qty_{selected_lab}"
                         )
                     
                     notes = st.text_area(
                         "Catatan", 
                         height=80,
                         help="Catatan tambahan tentang barang yang masuk (opsional)",
-                        key="in_notes"
+                        key=f"in_notes_{selected_lab}"
                     )
                     
                     submitted = st.form_submit_button("✅ Catat Barang Masuk", use_container_width=True)
@@ -877,8 +874,8 @@ elif page == "📤 Inventory Adjustment":
                                 st.error(f"❌ Error: {str(e)}")
                         else:
                             st.error("❌ Jumlah harus lebih dari 0!")
-                else:
-                    st.info("ℹ️ Belum ada equipment di lab ini.")
+            else:
+                st.info("ℹ️ Belum ada equipment di lab ini.")
     
     # Tab 2: Barang Keluar
     with tab2:
@@ -888,34 +885,31 @@ elif page == "📤 Inventory Adjustment":
         if not labs:
             st.warning("⚠️ Belum ada lab yang terdaftar.")
         else:
-            # Initialize session state for equipment list
+            # Initialize session state
             if 'out_selected_lab' not in st.session_state:
-                st.session_state.out_selected_lab = None
-            if 'out_equipment_list' not in st.session_state:
-                st.session_state.out_equipment_list = []
+                st.session_state.out_selected_lab = labs[0].get('lab_id') if labs else None
             
-            with st.form("out_movement_form", clear_on_submit=True):
-                selected_lab = st.selectbox(
-                    "Pilih Lab*",
-                    options=[lab.get('lab_id') for lab in labs],
-                    format_func=lambda x: next((lab.get('name') for lab in labs if lab.get('lab_id') == x), x),
-                    key="out_lab",
-                    help="Pilih lab dari mana barang keluar"
-                )
-                
-                # Store selected lab in session state
-                if selected_lab != st.session_state.out_selected_lab:
-                    st.session_state.out_selected_lab = selected_lab
-                    st.session_state.out_equipment_list = []
-                
-                equipment_list = st.session_state.equipment_manager.get_equipment_by_lab(selected_lab)
-                
-                if equipment_list:
+            # Lab selectbox OUTSIDE form to ensure proper refresh
+            selected_lab = st.selectbox(
+                "Pilih Lab*",
+                options=[lab.get('lab_id') for lab in labs],
+                format_func=lambda x: next((lab.get('name') for lab in labs if lab.get('lab_id') == x), x),
+                key="out_lab_select",
+                help="Pilih lab dari mana barang keluar"
+            )
+            
+            # Update session state
+            st.session_state.out_selected_lab = selected_lab
+            
+            equipment_list = st.session_state.equipment_manager.get_equipment_by_lab(selected_lab)
+            
+            if equipment_list:
+                with st.form("out_movement_form", clear_on_submit=True):
                     selected_equipment = st.selectbox(
                         "Pilih Equipment*",
                         options=[eq.get('equipment_id') for eq in equipment_list],
                         format_func=lambda x: next((eq.get('nama') for eq in equipment_list if eq.get('equipment_id') == x), x),
-                        key="out_eq",
+                        key=f"out_equipment_{selected_lab}",
                         help="Equipment mana yang akan keluar"
                     )
                     
@@ -932,7 +926,7 @@ elif page == "📤 Inventory Adjustment":
                             "Tanggal Keluar*",
                             value=pd.Timestamp.now().date(),
                             help="Tanggal barang keluar dari lab",
-                            key="out_date"
+                            key=f"out_date_{selected_lab}"
                         )
                     
                     with col2:
@@ -943,21 +937,21 @@ elif page == "📤 Inventory Adjustment":
                             step=1.0,
                             value=0.0,
                             help="Berapa jumlah unit yang akan keluar (tidak boleh melebihi stok saat ini)",
-                            key="out_qty"
+                            key=f"out_qty_{selected_lab}"
                         )
                     
                     reason = st.selectbox(
                         "Alasan",
                         ["Penggunaan/Praktikum", "Hilang", "Rusak", "Perbaikan", "Lainnya"],
                         help="Pilih alasan barang keluar dari lab",
-                        key="out_reason"
+                        key=f"out_reason_{selected_lab}"
                     )
                     
                     notes = st.text_area(
                         "Catatan Detail", 
                         height=80,
                         help="Keterangan detail tentang penggunaan atau keadaan barang yang keluar",
-                        key="out_notes"
+                        key=f"out_notes_{selected_lab}"
                     )
                     
                     submitted = st.form_submit_button("✅ Catat Barang Keluar", use_container_width=True)
@@ -975,8 +969,8 @@ elif page == "📤 Inventory Adjustment":
                                 st.error(f"❌ Error: {str(e)}")
                         else:
                             st.error("❌ Jumlah harus lebih dari 0!")
-                else:
-                    st.info("ℹ️ Belum ada equipment di lab ini.")
+            else:
+                st.info("ℹ️ Belum ada equipment di lab ini.")
     
     # Tab 3: History
     with tab3:
