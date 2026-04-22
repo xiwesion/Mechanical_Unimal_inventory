@@ -1,1 +1,1827 @@
-{}
+{
+  "LN01": {
+    "nama": "Besi As",
+    "jumlah": 5.0,
+    "merk": "",
+    "type": "Lainnya(Tipe: ewyy)",
+    "bom": "pcs",
+    "harga_satuan": 258000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "ST41 3/4\" x 6 m",
+    "status": "active",
+    "harga_keseluruhan": 1290000.0,
+    "equipment_id": "LN01",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.251240",
+    "last_modified": "2026-04-22T08:13:31.251252",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.251257",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K01": {
+    "nama": "Besi As",
+    "jumlah": 6.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 648000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "ST41 1\" x 6 m",
+    "status": "active",
+    "harga_keseluruhan": 3888000.0,
+    "equipment_id": "K01",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.276520",
+    "last_modified": "2026-04-22T08:14:50.633086",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.276537",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      },
+      {
+        "date": "2026-04-22T23:59:59",
+        "quantity": 4.0,
+        "change": 3.0,
+        "type": "in",
+        "notes": ""
+      },
+      {
+        "date": "2026-04-22T23:59:59",
+        "quantity": 6.0,
+        "change": 2.0,
+        "type": "in",
+        "notes": ""
+      }
+    ]
+  },
+  "K02": {
+    "nama": "As Aluminium",
+    "jumlah": 5.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 70000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Alumunium 16mm x 1m",
+    "status": "active",
+    "harga_keseluruhan": 350000.0,
+    "equipment_id": "K02",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.278027",
+    "last_modified": "2026-04-22T08:13:31.278037",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.278042",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K03": {
+    "nama": "Kertas Pasir",
+    "jumlah": 50.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 3000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "ukuran 1200 x 2400 x 1 mm",
+    "status": "active",
+    "harga_keseluruhan": 150000.0,
+    "equipment_id": "K03",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.280234",
+    "last_modified": "2026-04-22T08:13:31.280246",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.280250",
+        "quantity": 50.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K04": {
+    "nama": "Kertas Pasir",
+    "jumlah": 100.0,
+    "merk": "Radiproof",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 1420.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Grid 1000",
+    "status": "active",
+    "harga_keseluruhan": 142000.0,
+    "equipment_id": "K04",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.284245",
+    "last_modified": "2026-04-22T08:13:31.284257",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.284262",
+        "quantity": 100.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K05": {
+    "nama": "Kertas Pasir",
+    "jumlah": 100.0,
+    "merk": "Radiproof",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 1420.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Grid 800",
+    "status": "active",
+    "harga_keseluruhan": 142000.0,
+    "equipment_id": "K05",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.286108",
+    "last_modified": "2026-04-22T08:13:31.286118",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.286123",
+        "quantity": 100.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K06": {
+    "nama": "Kertas Pasir",
+    "jumlah": 100.0,
+    "merk": "Radiproof",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 1420.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Grid 600",
+    "status": "active",
+    "harga_keseluruhan": 142000.0,
+    "equipment_id": "K06",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.288388",
+    "last_modified": "2026-04-22T08:13:31.288400",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.288405",
+        "quantity": 100.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K07": {
+    "nama": "Kertas Pasir",
+    "jumlah": 96.0,
+    "merk": "Radiproof",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 1420.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Grid 400",
+    "status": "active",
+    "harga_keseluruhan": 136320.0,
+    "equipment_id": "K07",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.299451",
+    "last_modified": "2026-04-22T08:16:13.009104",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.299467",
+        "quantity": 100.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      },
+      {
+        "date": "2026-04-22T23:59:59",
+        "quantity": 97.0,
+        "change": -3.0,
+        "type": "out",
+        "notes": "Penggunaan/Praktikum"
+      },
+      {
+        "date": "2026-04-22T23:59:59",
+        "quantity": 96.0,
+        "change": -1.0,
+        "type": "out",
+        "notes": "Penggunaan/Praktikum"
+      }
+    ]
+  },
+  "K08": {
+    "nama": "Kain Polos Hitam",
+    "jumlah": 2.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 37000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "1 m x 2,4 m",
+    "status": "active",
+    "harga_keseluruhan": 74000.0,
+    "equipment_id": "K08",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.302523",
+    "last_modified": "2026-04-22T08:16:21.010469",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.302541",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      },
+      {
+        "date": "2026-04-22T23:59:59",
+        "quantity": 2.0,
+        "change": -3.0,
+        "type": "out",
+        "notes": "Penggunaan/Praktikum"
+      }
+    ]
+  },
+  "K09": {
+    "nama": "HNO3 / Asam Nitrat",
+    "jumlah": 2.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "liter",
+    "harga_satuan": 21000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "HNO3 68%",
+    "status": "active",
+    "harga_keseluruhan": 42000.0,
+    "equipment_id": "K09",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.306571",
+    "last_modified": "2026-04-22T08:13:31.306597",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.306628",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K10": {
+    "nama": "Alkohol",
+    "jumlah": 0.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "liter",
+    "harga_satuan": 40000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Alkohol 95%",
+    "status": "depleted",
+    "harga_keseluruhan": 0.0,
+    "equipment_id": "K10",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.311845",
+    "last_modified": "2026-04-22T08:16:28.387174",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.311870",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      },
+      {
+        "date": "2026-04-22T23:59:59",
+        "quantity": 0.0,
+        "change": -5.0,
+        "type": "out",
+        "notes": "Penggunaan/Praktikum"
+      }
+    ]
+  },
+  "K11": {
+    "nama": "Cairan Etsa",
+    "jumlah": 1.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "Paket",
+    "harga_satuan": 162000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Untuk Kuningan (Brasss),\n Alumunium, dan Tembaga\n500 ml",
+    "status": "active",
+    "harga_keseluruhan": 162000.0,
+    "equipment_id": "K11",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.315618",
+    "last_modified": "2026-04-22T08:13:31.315630",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.315636",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K12": {
+    "nama": "Kain Majun",
+    "jumlah": 50.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "kg",
+    "harga_satuan": 6500.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Kain Lap Majun Per 1 Kg Cocok Untuk Membersihkan Minyak Air Dan Oli",
+    "status": "active",
+    "harga_keseluruhan": 325000.0,
+    "equipment_id": "K12",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.320315",
+    "last_modified": "2026-04-22T08:13:31.320326",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.320331",
+        "quantity": 50.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K13": {
+    "nama": "Mouse",
+    "jumlah": 3.0,
+    "merk": "Logitech",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 54000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Logitech B100",
+    "status": "active",
+    "harga_keseluruhan": 162000.0,
+    "equipment_id": "K13",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.327098",
+    "last_modified": "2026-04-22T08:13:31.327111",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.327117",
+        "quantity": 3.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K14": {
+    "nama": "Mesin mini die grinder",
+    "jumlah": 1.0,
+    "merk": "LAXTON",
+    "type": "Konsumable",
+    "bom": "buah",
+    "harga_satuan": 285000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "LAXTON Mesin Mini die grinder set gerinda mini \nLX350 MURAH LARIS - LX350",
+    "status": "active",
+    "harga_keseluruhan": 285000.0,
+    "equipment_id": "K14",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.331369",
+    "last_modified": "2026-04-22T08:13:31.331380",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.331384",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K15": {
+    "nama": "Bor mini grinder",
+    "jumlah": 1.0,
+    "merk": "KEELAT/DELI",
+    "type": "Konsumable",
+    "bom": "buah",
+    "harga_satuan": 299000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Bor Mini Grinder SET",
+    "status": "active",
+    "harga_keseluruhan": 299000.0,
+    "equipment_id": "K15",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.336229",
+    "last_modified": "2026-04-22T08:13:31.336240",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.336245",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K16": {
+    "nama": "Meteran Laser",
+    "jumlah": 2.0,
+    "merk": "Setsutech",
+    "type": "Konsumable",
+    "bom": "unit",
+    "harga_satuan": 80000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Meteran Laser Digital 100M \nLaser Pengukur Jarak 100 meter \nmerk Rangefinder",
+    "status": "active",
+    "harga_keseluruhan": 160000.0,
+    "equipment_id": "K16",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.341153",
+    "last_modified": "2026-04-22T08:13:31.341170",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.341181",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K17": {
+    "nama": "Timah Solder Wire",
+    "jumlah": 2.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "buah",
+    "harga_satuan": 78500.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Timah Solder Wire Cap Greatwall 60% roll 250 gram",
+    "status": "active",
+    "harga_keseluruhan": 157000.0,
+    "equipment_id": "K17",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.346353",
+    "last_modified": "2026-04-22T08:13:31.346364",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.346369",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K18": {
+    "nama": "MICROFIBER",
+    "jumlah": 10.0,
+    "merk": "zaiku",
+    "type": "Konsumable",
+    "bom": "lembar",
+    "harga_satuan": 10000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "KAIN LAP MICROFIBER",
+    "status": "active",
+    "harga_keseluruhan": 100000.0,
+    "equipment_id": "K18",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.350622",
+    "last_modified": "2026-04-22T08:13:31.350633",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.350638",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K19": {
+    "nama": "3D Printer Removal Tool",
+    "jumlah": 2.0,
+    "merk": "Zaiku",
+    "type": "Konsumable",
+    "bom": "bh",
+    "harga_satuan": 150000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "3D Printer Removal Tool \nAlat Pemisah Hasil Print dari Bed",
+    "status": "active",
+    "harga_keseluruhan": 300000.0,
+    "equipment_id": "K19",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.355801",
+    "last_modified": "2026-04-22T08:13:31.355815",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.355820",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K20": {
+    "nama": "3D Printer Parts Creality",
+    "jumlah": 2.0,
+    "merk": "Zaiku",
+    "type": "Konsumable",
+    "bom": "bh",
+    "harga_satuan": 100000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "3D Printer Parts Creality \nMaintenance-Common Tools Kit",
+    "status": "active",
+    "harga_keseluruhan": 200000.0,
+    "equipment_id": "K20",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.361528",
+    "last_modified": "2026-04-22T08:13:31.361541",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.361546",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K21": {
+    "nama": "Beaker Glass",
+    "jumlah": 5.0,
+    "merk": "PYREX",
+    "type": "Konsumable",
+    "bom": "Buah",
+    "harga_satuan": 50000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Beaker Glass, 250 ml",
+    "status": "active",
+    "harga_keseluruhan": 250000.0,
+    "equipment_id": "K21",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.366752",
+    "last_modified": "2026-04-22T08:13:31.366764",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.366769",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K22": {
+    "nama": "Beaker Glass",
+    "jumlah": 5.0,
+    "merk": "PYREX",
+    "type": "Konsumable",
+    "bom": "Buah",
+    "harga_satuan": 60000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Beaker Glass, 500 ml",
+    "status": "active",
+    "harga_keseluruhan": 300000.0,
+    "equipment_id": "K22",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.372797",
+    "last_modified": "2026-04-22T08:13:31.372808",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.372814",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K23": {
+    "nama": "Labu Leher tiga",
+    "jumlah": 2.0,
+    "merk": "PYREX",
+    "type": "Konsumable",
+    "bom": "Buah",
+    "harga_satuan": 275000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Labu Leher tiga",
+    "status": "active",
+    "harga_keseluruhan": 550000.0,
+    "equipment_id": "K23",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.380366",
+    "last_modified": "2026-04-22T08:13:31.380378",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.380383",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K24": {
+    "nama": "Gelas Ukur",
+    "jumlah": 5.0,
+    "merk": "PYREX",
+    "type": "Konsumable",
+    "bom": "Buah",
+    "harga_satuan": 34000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Gelas Ukur, 25 ml",
+    "status": "active",
+    "harga_keseluruhan": 170000.0,
+    "equipment_id": "K24",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.387273",
+    "last_modified": "2026-04-22T08:13:31.387302",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.387311",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K25": {
+    "nama": "Gelas Ukur",
+    "jumlah": 3.0,
+    "merk": "PYREX",
+    "type": "Konsumable",
+    "bom": "Buah",
+    "harga_satuan": 50000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Gelas Ukur, 50 ml",
+    "status": "active",
+    "harga_keseluruhan": 150000.0,
+    "equipment_id": "K25",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.395335",
+    "last_modified": "2026-04-22T08:15:09.694627",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.395351",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      },
+      {
+        "date": "2026-04-22T23:59:59",
+        "quantity": 3.0,
+        "change": -2.0,
+        "type": "out",
+        "notes": "Penggunaan/Praktikum"
+      }
+    ]
+  },
+  "K26": {
+    "nama": "Tabung Reaksi",
+    "jumlah": 30.0,
+    "merk": "PYREX",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 16000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Tabung Reaksi, 20 ml",
+    "status": "active",
+    "harga_keseluruhan": 480000.0,
+    "equipment_id": "K26",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.401451",
+    "last_modified": "2026-04-22T08:13:31.401469",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.401475",
+        "quantity": 30.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K27": {
+    "nama": "Rak Tabung",
+    "jumlah": 2.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "Buah",
+    "harga_satuan": 28500.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Rak Tabung, 12 lubang, stainless",
+    "status": "active",
+    "harga_keseluruhan": 57000.0,
+    "equipment_id": "K27",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.409117",
+    "last_modified": "2026-04-22T08:13:31.409130",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.409135",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K28": {
+    "nama": "Aluminium foil",
+    "jumlah": 5.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "Buah",
+    "harga_satuan": 40000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Aluminium foil roll",
+    "status": "active",
+    "harga_keseluruhan": 200000.0,
+    "equipment_id": "K28",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.415696",
+    "last_modified": "2026-04-22T08:13:31.415710",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.415716",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K29": {
+    "nama": "Baterai UPS",
+    "jumlah": 4.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "Pcs",
+    "harga_satuan": 150000.0,
+    "kategori": "Lainnya(Kategori: Bahan Habis Pakai)",
+    "keterangan": "Baterai UPS",
+    "status": "active",
+    "harga_keseluruhan": 600000.0,
+    "equipment_id": "K29",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:13:31.422423",
+    "last_modified": "2026-04-22T08:13:31.422440",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:31.422446",
+        "quantity": 4.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K30": {
+    "nama": "As Aluminium",
+    "jumlah": 3.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 274000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Alumunium 32mm x 1000mm",
+    "status": "active",
+    "harga_keseluruhan": 822000.0,
+    "equipment_id": "K30",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.491363",
+    "last_modified": "2026-04-22T08:13:45.491376",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.491381",
+        "quantity": 3.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K31": {
+    "nama": "Plat strip",
+    "jumlah": 15.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "plat",
+    "harga_satuan": 65000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Plat Strip Tebal 20 mm Lebar 68 mm Panjang 215 mm",
+    "status": "active",
+    "harga_keseluruhan": 975000.0,
+    "equipment_id": "K31",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.497003",
+    "last_modified": "2026-04-22T08:13:45.497015",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.497020",
+        "quantity": 15.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K32": {
+    "nama": "As Stainless Steel",
+    "jumlah": 3.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 317000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Diameter (25mm) Panjang 1000 mm",
+    "status": "active",
+    "harga_keseluruhan": 951000.0,
+    "equipment_id": "K32",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.504523",
+    "last_modified": "2026-04-22T08:13:45.504534",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.504538",
+        "quantity": 3.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K33": {
+    "nama": "Besi Nako",
+    "jumlah": 25.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 35000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "12mm Panjang 2500 mm",
+    "status": "active",
+    "harga_keseluruhan": 875000.0,
+    "equipment_id": "K33",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.510621",
+    "last_modified": "2026-04-22T08:13:45.510632",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.510636",
+        "quantity": 25.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K34": {
+    "nama": "Plat Strip",
+    "jumlah": 5.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "plat",
+    "harga_satuan": 477000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Plat Strip Tebal 6mm Lebar 50mm Panjang 6000mm",
+    "status": "active",
+    "harga_keseluruhan": 2385000.0,
+    "equipment_id": "K34",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.516094",
+    "last_modified": "2026-04-22T08:13:45.516106",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.516111",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K35": {
+    "nama": "Plat Galvanis",
+    "jumlah": 1.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "plat",
+    "harga_satuan": 862600.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Plat Galvanis Tebal 1mm lebar 1200mm panjang 2400",
+    "status": "active",
+    "harga_keseluruhan": 862600.0,
+    "equipment_id": "K35",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.523922",
+    "last_modified": "2026-04-22T08:13:45.523934",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.523938",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K36": {
+    "nama": "Dromus",
+    "jumlah": 3.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 950000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Shell Dromus 20 liter",
+    "status": "active",
+    "harga_keseluruhan": 2850000.0,
+    "equipment_id": "K36",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.531631",
+    "last_modified": "2026-04-22T08:13:45.531644",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.531649",
+        "quantity": 3.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K37": {
+    "nama": "Besi As",
+    "jumlah": 5.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 181000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Besi AS 16mm FULL x 6M",
+    "status": "active",
+    "harga_keseluruhan": 905000.0,
+    "equipment_id": "K37",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.542609",
+    "last_modified": "2026-04-22T08:13:45.542621",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.542627",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K38": {
+    "nama": "Plat Lembaran Stainless Steel",
+    "jumlah": 2.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 1383000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Plat Stainless 304 (Tebal 1mm) Lebar 1220mm Panjang 2440mm",
+    "status": "active",
+    "harga_keseluruhan": 2766000.0,
+    "equipment_id": "K38",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.548518",
+    "last_modified": "2026-04-22T08:13:45.548529",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.548534",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K39": {
+    "nama": "Plat Lembaran Aluminium",
+    "jumlah": 2.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 687100.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Plat Alumunium Tebal 1mm Lebar 1200mm Panjang 2400mm",
+    "status": "active",
+    "harga_keseluruhan": 1374200.0,
+    "equipment_id": "K39",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.556304",
+    "last_modified": "2026-04-22T08:13:45.556315",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.556320",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K40": {
+    "nama": "Plat Strip Aluminium",
+    "jumlah": 1.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 1535000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Plat Strip Aluminium Tebal 20mm Panjang 200mm Lebar 100mm",
+    "status": "active",
+    "harga_keseluruhan": 1535000.0,
+    "equipment_id": "K40",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.564890",
+    "last_modified": "2026-04-22T08:13:45.564901",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.564906",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K41": {
+    "nama": "Bearing",
+    "jumlah": 1.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 37500.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Bearing UCP 205-16",
+    "status": "active",
+    "harga_keseluruhan": 37500.0,
+    "equipment_id": "K41",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.572073",
+    "last_modified": "2026-04-22T08:13:45.572088",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.572095",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K42": {
+    "nama": "Gelas Ukur",
+    "jumlah": 2.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 195000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Pyrex 1000ml",
+    "status": "active",
+    "harga_keseluruhan": 390000.0,
+    "equipment_id": "K42",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.579483",
+    "last_modified": "2026-04-22T08:13:45.579494",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.579498",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K43": {
+    "nama": "Fillament 3d Printer",
+    "jumlah": 1.0,
+    "merk": "Sunlu",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 145000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "SUNLU 3D Filament PETG Neat Winding Anti Sangkut Bahan Import dari USA - Black",
+    "status": "active",
+    "harga_keseluruhan": 145000.0,
+    "equipment_id": "K43",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.590565",
+    "last_modified": "2026-04-22T08:13:45.590576",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.590582",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K44": {
+    "nama": "Fillament 3d Printer",
+    "jumlah": 1.0,
+    "merk": "Sunlu",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 140000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "SUNLU 3D Filament PETG Neat Winding Anti Sangkut Bahan Import dari USA - White",
+    "status": "active",
+    "harga_keseluruhan": 140000.0,
+    "equipment_id": "K44",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.600082",
+    "last_modified": "2026-04-22T08:13:45.600093",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.600097",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K45": {
+    "nama": "Fillament 3d Printer",
+    "jumlah": 2.0,
+    "merk": "Indocart",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 216000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "IndoCart 3D Printer Filament SUNLU TPU 95A Flexible Filament 1.75mm 1Kg, Gray",
+    "status": "active",
+    "harga_keseluruhan": 432000.0,
+    "equipment_id": "K45",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.609386",
+    "last_modified": "2026-04-22T08:13:45.609397",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.609402",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K46": {
+    "nama": "Fillament 3d Printer",
+    "jumlah": 1.0,
+    "merk": "eSun",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 198000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "ESUN 3D PRINTER FILAMENT ABS+ 1.75mm 1KG Original - Silver",
+    "status": "active",
+    "harga_keseluruhan": 198000.0,
+    "equipment_id": "K46",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.617374",
+    "last_modified": "2026-04-22T08:13:45.617386",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.617391",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K47": {
+    "nama": "Mata Gergaji Besi",
+    "jumlah": 1.0,
+    "merk": "Tekiro",
+    "type": "Konsumable",
+    "bom": "box",
+    "harga_satuan": 1480000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Tekiro 12 Inch",
+    "status": "active",
+    "harga_keseluruhan": 1480000.0,
+    "equipment_id": "K47",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.627847",
+    "last_modified": "2026-04-22T08:13:45.627859",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.627864",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K48": {
+    "nama": "Tabung dan Isi Gas (2 m3)",
+    "jumlah": 5.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 1130000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Argon Mix CO2\nKandungan Argon: 88%\nKandungan Co2: 12%",
+    "status": "active",
+    "harga_keseluruhan": 5650000.0,
+    "equipment_id": "K48",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.638714",
+    "last_modified": "2026-04-22T08:13:45.638727",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.638738",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K49": {
+    "nama": "Tabung dan Isi Gas (2 m3)",
+    "jumlah": 5.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 850000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Argon 100%",
+    "status": "active",
+    "harga_keseluruhan": 4250000.0,
+    "equipment_id": "K49",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.649119",
+    "last_modified": "2026-04-22T08:13:45.649131",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.649136",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K50": {
+    "nama": "Tabung dan Isi Gas (6 m3)",
+    "jumlah": 1.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 1900000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Nitrogen 100%",
+    "status": "active",
+    "harga_keseluruhan": 1900000.0,
+    "equipment_id": "K50",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.660207",
+    "last_modified": "2026-04-22T08:13:45.660220",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.660225",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K51": {
+    "nama": "Tabung dan Isi Gas (1,5 m3)",
+    "jumlah": 1.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 800000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Oxygen 100%",
+    "status": "active",
+    "harga_keseluruhan": 800000.0,
+    "equipment_id": "K51",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.668784",
+    "last_modified": "2026-04-22T08:13:45.668795",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.668800",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K52": {
+    "nama": "Regulator Gas Argon",
+    "jumlah": 5.0,
+    "merk": "Asano",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 135000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Asano",
+    "status": "active",
+    "harga_keseluruhan": 675000.0,
+    "equipment_id": "K52",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.681780",
+    "last_modified": "2026-04-22T08:13:45.681792",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.681797",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K53": {
+    "nama": "Regulator Gas Argon Mix Co2",
+    "jumlah": 5.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 135000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "YQAr-731L",
+    "status": "active",
+    "harga_keseluruhan": 675000.0,
+    "equipment_id": "K53",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.692195",
+    "last_modified": "2026-04-22T08:13:45.692206",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.692210",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K54": {
+    "nama": "Kontak Tip Nozzle Las Mig",
+    "jumlah": 10.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 3900.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "diamater 1 mm x M6 x diameter 8mm x panjang 28 mm \n(ABICOR BINZEL ORIGINAL GERMANY)",
+    "status": "active",
+    "harga_keseluruhan": 39000.0,
+    "equipment_id": "K54",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.699719",
+    "last_modified": "2026-04-22T08:13:45.699728",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.699731",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K55": {
+    "nama": "Kawat Las Mig 1,0 mm",
+    "jumlah": 5.0,
+    "merk": "MORRIS",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 375000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "AWS ER70S-6",
+    "status": "active",
+    "harga_keseluruhan": 1875000.0,
+    "equipment_id": "K55",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.708654",
+    "last_modified": "2026-04-22T08:13:45.708665",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.708670",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K56": {
+    "nama": "Anti Spatter Gel",
+    "jumlah": 5.0,
+    "merk": "UPS",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 51500.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "UPS F 1010",
+    "status": "active",
+    "harga_keseluruhan": 257500.0,
+    "equipment_id": "K56",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.716937",
+    "last_modified": "2026-04-22T08:13:45.716946",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.716949",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K57": {
+    "nama": "Gas Lens Nozzle Tig (Keramik Nozzle Tig)",
+    "jumlah": 10.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 3575.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Type WP 9 No. 6",
+    "status": "active",
+    "harga_keseluruhan": 35750.0,
+    "equipment_id": "K57",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.728205",
+    "last_modified": "2026-04-22T08:13:45.728214",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.728217",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K58": {
+    "nama": "Gas Lens Nozzle Tig (Keramik Nozzle Tig)",
+    "jumlah": 10.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 3575.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Type WP 9 No. 7",
+    "status": "active",
+    "harga_keseluruhan": 35750.0,
+    "equipment_id": "K58",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.735904",
+    "last_modified": "2026-04-22T08:13:45.735912",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.735915",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K59": {
+    "nama": "Gas Lens Nozzle Tig (Keramik Nozzle Tig)",
+    "jumlah": 10.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 3575.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Type WP 9 No. 8",
+    "status": "active",
+    "harga_keseluruhan": 35750.0,
+    "equipment_id": "K59",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.744395",
+    "last_modified": "2026-04-22T08:13:45.744405",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.744410",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K60": {
+    "nama": "Collet Nozzle Tig Type WP 9",
+    "jumlah": 10.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 4290.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Type WP 9 ukuran 2,4 mm",
+    "status": "active",
+    "harga_keseluruhan": 42900.0,
+    "equipment_id": "K60",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.752548",
+    "last_modified": "2026-04-22T08:13:45.752557",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.752560",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K61": {
+    "nama": "Collet Nozzle Tig Type WP 9",
+    "jumlah": 10.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 4720.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Type WP 9 ukuran 1,6 mm",
+    "status": "active",
+    "harga_keseluruhan": 47200.0,
+    "equipment_id": "K61",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.764825",
+    "last_modified": "2026-04-22T08:13:45.764835",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.764841",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K62": {
+    "nama": "Collet Body Tig",
+    "jumlah": 10.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 10455.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Type Wp 9 Ukuran 1,6 mm",
+    "status": "active",
+    "harga_keseluruhan": 104550.0,
+    "equipment_id": "K62",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.773385",
+    "last_modified": "2026-04-22T08:13:45.773396",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.773399",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K63": {
+    "nama": "Collet Body Tig",
+    "jumlah": 10.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 10455.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Type Wp 9 Ukuran 2,4 mm",
+    "status": "active",
+    "harga_keseluruhan": 104550.0,
+    "equipment_id": "K63",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.782632",
+    "last_modified": "2026-04-22T08:13:45.782642",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.782648",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K64": {
+    "nama": "Back Cap Long Tig",
+    "jumlah": 10.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 9000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Type Wp 9",
+    "status": "active",
+    "harga_keseluruhan": 90000.0,
+    "equipment_id": "K64",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.790320",
+    "last_modified": "2026-04-22T08:13:45.790330",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.790335",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K65": {
+    "nama": "Tungsten Electrode",
+    "jumlah": 5.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "kotak",
+    "harga_satuan": 45000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Weldcraft ukuran 2,4 mm \n(warna merah ujungnya)",
+    "status": "active",
+    "harga_keseluruhan": 225000.0,
+    "equipment_id": "K65",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.798906",
+    "last_modified": "2026-04-22T08:13:45.798914",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.798917",
+        "quantity": 5.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K66": {
+    "nama": "Tungsten Electrode",
+    "jumlah": 2.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "kotak",
+    "harga_satuan": 400000.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "Weldcraft ukuran 1,6  mm\n(warna biru ujungnya)",
+    "status": "active",
+    "harga_keseluruhan": 800000.0,
+    "equipment_id": "K66",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.808740",
+    "last_modified": "2026-04-22T08:13:45.808748",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.808751",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K67": {
+    "nama": "Filler Rod Tig",
+    "jumlah": 10.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "kg",
+    "harga_satuan": 158286.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "TG-S50 \n(Ukuran 2,4mm x 1000mm)",
+    "status": "active",
+    "harga_keseluruhan": 1582860.0,
+    "equipment_id": "K67",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.817555",
+    "last_modified": "2026-04-22T08:13:45.817566",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.817571",
+        "quantity": 10.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K68": {
+    "nama": "Pull Stud",
+    "jumlah": 2.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 90659.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "BT40 - 90\u00b0 Merk YEONG YIH",
+    "status": "active",
+    "harga_keseluruhan": 181318.0,
+    "equipment_id": "K68",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.827065",
+    "last_modified": "2026-04-22T08:13:45.827073",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.827076",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K69": {
+    "nama": "Pull Stud",
+    "jumlah": 2.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 163187.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "BT40 - 45\u00b0W Merk YEONG YIH",
+    "status": "active",
+    "harga_keseluruhan": 326374.0,
+    "equipment_id": "K69",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.836235",
+    "last_modified": "2026-04-22T08:13:45.836249",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.836257",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K70": {
+    "nama": "Pull Stud",
+    "jumlah": 2.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 149850.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "PS-P5 For BT40 MITISUI SEIKI- Merk Yeong Yih",
+    "status": "active",
+    "harga_keseluruhan": 299700.0,
+    "equipment_id": "K70",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.845504",
+    "last_modified": "2026-04-22T08:13:45.845514",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.845518",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K71": {
+    "nama": "Pull Stud",
+    "jumlah": 2.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 163187.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "BT40 Merk Yeong Yih",
+    "status": "active",
+    "harga_keseluruhan": 326374.0,
+    "equipment_id": "K71",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.857128",
+    "last_modified": "2026-04-22T08:13:45.857138",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.857143",
+        "quantity": 2.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K72": {
+    "nama": "Arbor Milling",
+    "jumlah": 1.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 942856.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "BT40-ER32-100 Merk Yeong Yih",
+    "status": "active",
+    "harga_keseluruhan": 942856.0,
+    "equipment_id": "K72",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.866565",
+    "last_modified": "2026-04-22T08:13:45.866575",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.866579",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  },
+  "K73": {
+    "nama": "Arbor Milling",
+    "jumlah": 1.0,
+    "merk": "",
+    "type": "Konsumable",
+    "bom": "pcs",
+    "harga_satuan": 1648350.0,
+    "kategori": "Lainnya(Kategori: Barang Habis Pakai)",
+    "keterangan": "BT40-ER32-150 Merk Yeong Yih",
+    "status": "active",
+    "harga_keseluruhan": 1648350.0,
+    "equipment_id": "K73",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:45.876203",
+    "last_modified": "2026-04-22T08:13:45.876213",
+    "quantity_history": [
+      {
+        "date": "2026-04-22T08:13:45.876216",
+        "quantity": 1.0,
+        "type": "initial",
+        "notes": "Penambahan awal"
+      }
+    ]
+  }
+}

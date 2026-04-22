@@ -1,1 +1,18 @@
-{}
+{
+  "material": {
+    "name": "Lab Rekayasa Material",
+    "description": "",
+    "color": "#E8F5E9",
+    "lab_id": "material",
+    "created_date": "2026-04-22T08:12:59.192654",
+    "equipment_count": 0
+  },
+  "manufaktur": {
+    "name": "Lab Manufakur dan Perancangan",
+    "description": "",
+    "color": "#E8F5E9",
+    "lab_id": "manufaktur",
+    "created_date": "2026-04-22T08:13:13.854237",
+    "equipment_count": 0
+  }
+}

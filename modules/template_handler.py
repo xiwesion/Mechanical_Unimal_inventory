@@ -10,6 +10,7 @@ import pandas as pd
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
+from utils.constants import EQUIPMENT_TYPES, EQUIPMENT_CATEGORIES
 
 class TemplateHandler:
     """Handles Excel template and data import/export"""
@@ -115,9 +116,9 @@ class TemplateHandler:
             print(f"Error reading template: {e}")
             return None
     
-    def import_equipment(self, file, lab_id: str, equipment_manager=None) -> tuple[bool, str, list]:
+    def import_equipment(self, file, lab_id: str, equipment_manager=None) -> tuple[bool, str, list, list]:
         """
-        Import equipment from Excel file
+        Import equipment from Excel file with validation
         
         Args:
             file: Uploaded file object
@@ -125,7 +126,7 @@ class TemplateHandler:
             equipment_manager: EquipmentManager instance (optional, will create new if not provided)
         
         Returns:
-            (success, message, imported_equipment_list)
+            (success, message, imported_equipment_list, warnings_list)
         """
         try:
             # Read Excel file
@@ -137,6 +138,7 @@ class TemplateHandler:
             
             imported = []
             errors = []
+            warnings = []
             
             # Use provided equipment_manager or create new one
             if equipment_manager is None:
@@ -148,14 +150,35 @@ class TemplateHandler:
             for idx, row in df.iterrows():
                 try:
                     # Prepare equipment data
+                    eq_type = str(row.get('Type', '')).strip()
+                    eq_kategori = str(row.get('Kategori', 'Lainnya')).strip()
+                    
+                    # Validate and correct Type
+                    type_warning = None
+                    if eq_type and eq_type not in EQUIPMENT_TYPES:
+                        type_warning = f"Type '{eq_type}' tidak valid, diganti menjadi 'Lainnya(Tipe: {eq_type})'"
+                        warnings.append(f"Row {idx + 3}: {type_warning}")
+                        eq_type = f"Lainnya(Tipe: {eq_type})"
+                    elif not eq_type:
+                        eq_type = 'Lainnya'
+                    
+                    # Validate and correct Kategori
+                    kategori_warning = None
+                    if eq_kategori and eq_kategori not in EQUIPMENT_CATEGORIES:
+                        kategori_warning = f"Kategori '{eq_kategori}' tidak valid, diganti menjadi 'Lainnya(Kategori: {eq_kategori})'"
+                        warnings.append(f"Row {idx + 3}: {kategori_warning}")
+                        eq_kategori = f"Lainnya(Kategori: {eq_kategori})"
+                    elif not eq_kategori:
+                        eq_kategori = 'Lainnya'
+                    
                     equipment_data = {
                         'nama': str(row.get('Nama Equipment*', '')).strip(),
                         'jumlah': float(row.get('Jumlah/Quantity*', 0)) or 0,
                         'merk': str(row.get('Merk', '')).strip(),
-                        'type': str(row.get('Type', '')).strip(),
+                        'type': eq_type,
                         'bom': str(row.get('BoM', '')).strip(),
                         'harga_satuan': float(row.get('Harga Satuan*', 0)) or 0,
-                        'kategori': str(row.get('Kategori', 'Lainnya')).strip(),
+                        'kategori': eq_kategori,
                         'keterangan': str(row.get('Keterangan', '')).strip(),
                         'status': str(row.get('Status', 'active')).lower().replace(' ', '_')
                     }
@@ -198,10 +221,20 @@ class TemplateHandler:
                 if len(errors) > 5:
                     message += f"\n... dan {len(errors) - 5} error lainnya"
             
-            return len(imported) > 0, message, imported
+            if warnings:
+                if message:
+                    message += f"\n\n⚠️ Peringatan ({len(warnings)}):\n" + "\n".join(warnings[:5])
+                    if len(warnings) > 5:
+                        message += f"\n... dan {len(warnings) - 5} peringatan lainnya"
+                else:
+                    message = f"⚠️ Peringatan ({len(warnings)}):\n" + "\n".join(warnings[:5])
+                    if len(warnings) > 5:
+                        message += f"\n... dan {len(warnings) - 5} peringatan lainnya"
+            
+            return len(imported) > 0, message, imported, warnings
             
         except Exception as e:
-            return False, f"Error: {str(e)}", []
+            return False, f"Error: {str(e)}", [], []
     
     def export_equipment(self, equipment_list: list, include_consumption: bool = False) -> bytes:
         """

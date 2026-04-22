@@ -1,1 +1,79 @@
-[]
+[
+  {
+    "movement_id": "K01_1776820487.208156",
+    "equipment_id": "K01",
+    "lab_id": "material",
+    "movement_type": "in",
+    "quantity": 3.0,
+    "date": "2026-04-22T23:59:59",
+    "notes": "",
+    "equipment_name": "Besi As",
+    "lab_name": "material"
+  },
+  {
+    "movement_id": "K01_1776820490.662984",
+    "equipment_id": "K01",
+    "lab_id": "material",
+    "movement_type": "in",
+    "quantity": 2.0,
+    "date": "2026-04-22T23:59:59",
+    "notes": "",
+    "equipment_name": "Besi As",
+    "lab_name": "material"
+  },
+  {
+    "movement_id": "K25_1776820509.720221",
+    "equipment_id": "K25",
+    "lab_id": "material",
+    "movement_type": "out",
+    "quantity": -2.0,
+    "date": "2026-04-22T23:59:59",
+    "notes": "Penggunaan/Praktikum",
+    "equipment_name": "Gelas Ukur",
+    "lab_name": "material"
+  },
+  {
+    "movement_id": "K07_1776820566.876062",
+    "equipment_id": "K07",
+    "lab_id": "material",
+    "movement_type": "out",
+    "quantity": -3.0,
+    "date": "2026-04-22T23:59:59",
+    "notes": "Penggunaan/Praktikum",
+    "equipment_name": "Kertas Pasir",
+    "lab_name": "material"
+  },
+  {
+    "movement_id": "K07_1776820573.036591",
+    "equipment_id": "K07",
+    "lab_id": "material",
+    "movement_type": "out",
+    "quantity": -1.0,
+    "date": "2026-04-22T23:59:59",
+    "notes": "Penggunaan/Praktikum",
+    "equipment_name": "Kertas Pasir",
+    "lab_name": "material"
+  },
+  {
+    "movement_id": "K08_1776820581.037904",
+    "equipment_id": "K08",
+    "lab_id": "material",
+    "movement_type": "out",
+    "quantity": -3.0,
+    "date": "2026-04-22T23:59:59",
+    "notes": "Penggunaan/Praktikum",
+    "equipment_name": "Kain Polos Hitam",
+    "lab_name": "material"
+  },
+  {
+    "movement_id": "K10_1776820588.412965",
+    "equipment_id": "K10",
+    "lab_id": "material",
+    "movement_type": "out",
+    "quantity": -5.0,
+    "date": "2026-04-22T23:59:59",
+    "notes": "Penggunaan/Praktikum",
+    "equipment_name": "Alkohol",
+    "lab_name": "material"
+  }
+]

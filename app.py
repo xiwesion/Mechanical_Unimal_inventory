@@ -22,7 +22,7 @@ from modules.equipment_manager import EquipmentManager
 from modules.inventory_manager import InventoryManager
 from modules.template_handler import TemplateHandler
 from utils.constants import (
-    DEFAULT_LABS, EQUIPMENT_TYPES, EQUIPMENT_STATUS,
+    DEFAULT_LABS, EQUIPMENT_TYPES, EQUIPMENT_CATEGORIES, EQUIPMENT_STATUS,
     MOVEMENT_TYPES, COLOR_PALETTE, THEME_COLORS, THEME_OPTIONS,
     DATE_FORMAT, DISPLAY_DATE_FORMAT, DISPLAY_DATETIME_FORMAT
 )
@@ -378,68 +378,116 @@ elif page == "🏭 Lab Management":
 elif page == "🔧 Equipment Management":
     st.header("🔧 Equipment Management")
     
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
         "📋 View Equipment", 
         "➕ Add Equipment", 
         "📥 Import Equipment", 
         "📊 Search",
         "🗑️ Delete Equipment",
-        "🔄 Edit Status",
-        "✏️ Edit Keterangan"
+        "✏️ Edit Equipment"
     ])
     
     # Tab 1: View Equipment
     with tab1:
-        st.subheader("Daftar Equipment")
+        st.subheader("📋 Daftar Semua Equipment")
         
         # Filter by lab
         labs = st.session_state.lab_manager.get_all_labs()
         lab_options = {lab.get('lab_id'): lab.get('name') for lab in labs}
         
-        selected_lab = st.selectbox(
-            "Filter by Lab:",
-            options=['all'] + list(lab_options.keys()),
-            format_func=lambda x: 'Semua Lab' if x == 'all' else lab_options.get(x, x)
-        )
+        col1, col2, col3 = st.columns(3)
         
-        # Get equipment
+        with col1:
+            selected_lab = st.selectbox(
+                "Filter by Lab:",
+                options=['all'] + list(lab_options.keys()),
+                format_func=lambda x: 'Semua Lab' if x == 'all' else lab_options.get(x, x),
+                key="view_lab_filter"
+            )
+        
+        with col2:
+            selected_type = st.selectbox(
+                "Filter by Type:",
+                options=['Semua'] + EQUIPMENT_TYPES,
+                key="view_type_filter"
+            )
+        
+        with col3:
+            selected_status = st.selectbox(
+                "Filter by Status:",
+                options=['Semua', 'active', 'maintenance', 'depleted', 'archived'],
+                key="view_status_filter"
+            )
+        
+        # Get equipment with filters
         if selected_lab == 'all':
             equipment_list = st.session_state.equipment_manager.get_all_equipment()
         else:
             equipment_list = st.session_state.equipment_manager.get_equipment_by_lab(selected_lab)
         
+        # Apply type filter
+        if selected_type != 'Semua':
+            equipment_list = [eq for eq in equipment_list if eq.get('type') == selected_type]
+        
+        # Apply status filter
+        if selected_status != 'Semua':
+            equipment_list = [eq for eq in equipment_list if eq.get('status') == selected_status]
+        
         if equipment_list:
-            # Create dataframe for display
+            # Create comprehensive dataframe for display
             df_data = []
             for eq in equipment_list:
                 df_data.append({
-                    'ID': eq.get('equipment_id', '')[:6],
+                    'ID': eq.get('equipment_id', ''),
                     'Nama': eq.get('nama', '-'),
-                    'Qty': f"{int(eq.get('jumlah', 0))}",
-                    'Merk': eq.get('merk', '-'),
+                    'Lab': eq.get('lab_id', '-'),
                     'Type': eq.get('type', '-'),
+                    'Kategori': eq.get('kategori', '-'),
+                    'Qty': int(eq.get('jumlah', 0)),
+                    'Merk': eq.get('merk', '-'),
+                    'BoM': eq.get('bom', '-'),
                     'Harga Satuan': f"Rp {float(eq.get('harga_satuan', 0)):,.0f}",
-                    'Total': f"Rp {float(eq.get('harga_keseluruhan', 0)):,.0f}",
-                    'Status': eq.get('status', 'active')
+                    'Total Harga': f"Rp {float(eq.get('harga_keseluruhan', 0)):,.0f}",
+                    'Status': eq.get('status', 'active'),
+                    'Keterangan': eq.get('keterangan', '-')[:40],
+                    'Dibuat': eq.get('created_date', '')[:10]
                 })
             
             df = pd.DataFrame(df_data)
-            st.dataframe(df, use_container_width=True, hide_index=True)
             
-            st.caption(f"Total: {len(equipment_list)} equipment")
+            # Display with height and scrolling
+            st.dataframe(
+                df,
+                use_container_width=True,
+                hide_index=True,
+                height=500
+            )
+            
+            col1, col2, col3 = st.columns(3)
+            with col1:
+                st.caption(f"📊 Total: {len(equipment_list)} equipment")
+            with col2:
+                total_qty = sum([int(eq.get('jumlah', 0)) for eq in equipment_list])
+                st.caption(f"📦 Total Qty: {total_qty} unit")
+            with col3:
+                total_value = sum([float(eq.get('harga_keseluruhan', 0)) for eq in equipment_list])
+                st.caption(f"💰 Total Value: Rp {total_value:,.0f}")
+            
+            st.divider()
             
             # Export option
-            if st.button("📥 Export to Excel", use_container_width=True):
+            if st.button("📥 Export ke Excel", use_container_width=True):
                 excel_bytes = st.session_state.template_handler.export_equipment(equipment_list)
                 if excel_bytes:
                     st.download_button(
                         label="⬇️ Download Excel",
                         data=excel_bytes,
                         file_name=f"equipment_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
-                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        key="export_view"
                     )
         else:
-            st.info("ℹ️ Belum ada equipment di lab ini.")
+            st.info("ℹ️ Tidak ada equipment sesuai filter yang dipilih.")
     
     # Tab 2: Add Equipment
     with tab2:
@@ -490,7 +538,7 @@ elif page == "🔧 Equipment Management":
                     )
                     kategori = st.selectbox(
                         "Kategori", 
-                        options=["Mesin", "Alat Ukur", "Peralatan Bengkel", "Lainnya"],
+                        options=EQUIPMENT_CATEGORIES,
                         help="Kategori equipment untuk klasifikasi"
                     )
                 
@@ -581,7 +629,7 @@ elif page == "🔧 Equipment Management":
             
             if uploaded_file:
                 if st.button("📥 Import Data", use_container_width=True):
-                    success, message, imported = st.session_state.template_handler.import_equipment(
+                    success, message, imported, warnings = st.session_state.template_handler.import_equipment(
                         uploaded_file, selected_lab, st.session_state.equipment_manager
                     )
                     
@@ -597,193 +645,421 @@ elif page == "🔧 Equipment Management":
                     else:
                         st.error(f"❌ {message}")
     
-    # Tab 4: Search
+    # Tab 4: Search Equipment
     with tab4:
-        st.subheader("Cari Equipment")
+        st.subheader("🔍 Cari Equipment")
         
-        search_query = st.text_input("Cari berdasarkan nama atau merk:", placeholder="Cth: Mesin, TOKOTA")
+        col1, col2 = st.columns([3, 1])
+        
+        with col1:
+            search_query = st.text_input(
+                "Cari berdasarkan nama atau merk*",
+                placeholder="Cth: Mesin Bubut, TOKOTA, Caliper",
+                help="Ketik nama atau merk equipment untuk mencari"
+            )
+        
+        with col2:
+            search_type_filter = st.selectbox(
+                "Filter Type",
+                options=['Semua'] + EQUIPMENT_TYPES,
+                help="Filter hasil pencarian berdasarkan type"
+            )
         
         if search_query:
             results = st.session_state.equipment_manager.search_equipment(search_query)
             
+            # Apply type filter
+            if search_type_filter != 'Semua':
+                results = [eq for eq in results if eq.get('type') == search_type_filter]
+            
             if results:
                 st.success(f"✅ Ditemukan {len(results)} equipment")
                 
+                # Create dataframe for better presentation
+                search_data = []
                 for eq in results:
-                    col1, col2, col3 = st.columns([2, 1, 1])
+                    lab_info = st.session_state.lab_manager.get_lab(eq.get('lab_id'))
+                    lab_name = lab_info.get('name', eq.get('lab_id', '-')) if lab_info else eq.get('lab_id', '-')
                     
-                    with col1:
-                        st.write(f"**{eq.get('nama')}**")
-                        st.caption(f"Merk: {eq.get('merk', '-')} | Type: {eq.get('type', '-')}")
-                    
-                    with col2:
-                        st.metric("Qty", int(eq.get('jumlah', 0)))
-                    
-                    with col3:
-                        st.metric("Total", f"Rp {float(eq.get('harga_keseluruhan', 0)):,.0f}")
+                    search_data.append({
+                        'ID': eq.get('equipment_id', ''),
+                        'Nama': eq.get('nama', '-'),
+                        'Lab': lab_name,
+                        'Type': eq.get('type', '-'),
+                        'Qty': int(eq.get('jumlah', 0)),
+                        'Merk': eq.get('merk', '-'),
+                        'Kategori': eq.get('kategori', '-'),
+                        'Status': eq.get('status', 'active'),
+                        'Harga Satuan': f"Rp {float(eq.get('harga_satuan', 0)):,.0f}",
+                        'Total': f"Rp {float(eq.get('harga_keseluruhan', 0)):,.0f}",
+                        'Keterangan': eq.get('keterangan', '-')[:50]
+                    })
+                
+                df_search = pd.DataFrame(search_data)
+                
+                # Display with horizontal scroll
+                st.dataframe(
+                    df_search,
+                    use_container_width=True,
+                    hide_index=True,
+                    height=400
+                )
+                
+                # Export search results
+                if st.button("📥 Export Hasil Pencarian ke Excel", use_container_width=True):
+                    # Get full equipment data for export
+                    export_list = [eq for eq in results]
+                    excel_bytes = st.session_state.template_handler.export_equipment(export_list)
+                    if excel_bytes:
+                        st.download_button(
+                            label="⬇️ Download Excel",
+                            data=excel_bytes,
+                            file_name=f"search_results_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
+                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        )
             else:
                 st.info("ℹ️ Tidak ada equipment yang sesuai dengan pencarian.")
     
-    # Tab 5: Delete Equipment
+    # Tab 5: Delete Equipment (Enhanced with Cluster & Bulk)
     with tab5:
         st.subheader("🗑️ Hapus Equipment")
         
         equipment_list = st.session_state.equipment_manager.get_all_equipment()
+        
         if equipment_list:
-            selected_equipment = st.selectbox(
-                "Pilih Equipment untuk dihapus*",
-                options=[eq.get('equipment_id') for eq in equipment_list],
-                format_func=lambda x: next((f"{eq.get('nama')} (Qty: {int(eq.get('jumlah', 0))})" 
-                                          for eq in equipment_list if eq.get('equipment_id') == x), x),
-                key="delete_equipment"
-            )
+            st.info("💡 Pilih lab dan/atau type untuk filter, kemudian pilih equipment yang ingin dihapus dari tabel")
             
-            eq = st.session_state.equipment_manager.get_equipment(selected_equipment)
-            if eq:
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.write(f"**Nama:** {eq.get('nama')}")
-                    st.write(f"**Qty Saat Ini:** {int(eq.get('jumlah', 0))}")
-                with col2:
-                    st.write(f"**Merk:** {eq.get('merk', '-')}")
-                    st.write(f"**Total Harga:** Rp {float(eq.get('harga_keseluruhan', 0)):,.0f}")
+            # Filters
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                labs = st.session_state.lab_manager.get_all_labs()
+                lab_options = {lab.get('lab_id'): lab.get('name') for lab in labs}
+                selected_lab_delete = st.selectbox(
+                    "Filter Lab*",
+                    options=['all'] + list(lab_options.keys()),
+                    format_func=lambda x: 'Semua Lab' if x == 'all' else lab_options.get(x, x),
+                    key="delete_lab_filter"
+                )
+            
+            with col2:
+                selected_type_delete = st.selectbox(
+                    "Filter Type",
+                    options=['Semua'] + EQUIPMENT_TYPES,
+                    key="delete_type_filter"
+                )
+            
+            with col3:
+                delete_mode = st.selectbox(
+                    "Mode Hapus*",
+                    options=['Pilih Equipment', 'Hapus Semua di Lab Ini'],
+                    help="Pilih individual equipment atau hapus semua di lab yang dipilih",
+                    key="delete_mode"
+                )
+            
+            st.divider()
+            
+            # Apply filters
+            if selected_lab_delete == 'all':
+                filtered_list = equipment_list
+            else:
+                filtered_list = st.session_state.equipment_manager.get_equipment_by_lab(selected_lab_delete)
+            
+            if selected_type_delete != 'Semua':
+                filtered_list = [eq for eq in filtered_list if eq.get('type') == selected_type_delete]
+            
+            if delete_mode == 'Pilih Equipment':
+                # Show table with checkboxes
+                st.subheader("Pilih Equipment untuk Dihapus")
                 
-                st.warning("⚠️ Aksi ini tidak dapat dibatalkan! Equipment akan dihapus selamanya.")
+                delete_data = []
+                for eq in filtered_list:
+                    delete_data.append({
+                        'Hapus': False,  # Checkbox column
+                        'ID': eq.get('equipment_id', ''),
+                        'Nama': eq.get('nama', '-'),
+                        'Lab': eq.get('lab_id', '-'),
+                        'Qty': int(eq.get('jumlah', 0)),
+                        'Type': eq.get('type', '-'),
+                        'Merk': eq.get('merk', '-'),
+                        'Status': eq.get('status', 'active'),
+                        'Total': f"Rp {float(eq.get('harga_keseluruhan', 0)):,.0f}"
+                    })
                 
-                if st.button("🗑️ Hapus Equipment Ini", use_container_width=True, type="secondary"):
-                    try:
-                        st.session_state.equipment_manager.delete_equipment(selected_equipment)
+                df_delete = pd.DataFrame(delete_data)
+                
+                # Data editor untuk memilih
+                edited_df = st.data_editor(
+                    df_delete,
+                    use_container_width=True,
+                    hide_index=True,
+                    height=400,
+                    key="delete_selection_table"
+                )
+                
+                # Get selected items
+                selected_to_delete = [
+                    filtered_list[idx].get('equipment_id')
+                    for idx, row in edited_df.iterrows()
+                    if row['Hapus'] == True
+                ]
+                
+                if selected_to_delete:
+                    st.warning(f"⚠️ Akan menghapus {len(selected_to_delete)} equipment - Aksi ini TIDAK DAPAT dibatalkan!")
+                    
+                    # Summary
+                    summary_data = [eq for eq in filtered_list if eq.get('equipment_id') in selected_to_delete]
+                    total_qty = sum([int(eq.get('jumlah', 0)) for eq in summary_data])
+                    total_value = sum([float(eq.get('harga_keseluruhan', 0)) for eq in summary_data])
+                    
+                    col1, col2, col3 = st.columns(3)
+                    with col1:
+                        st.metric("Equipment Dipilih", len(selected_to_delete))
+                    with col2:
+                        st.metric("Total Qty", total_qty)
+                    with col3:
+                        st.metric("Total Value", f"Rp {total_value:,.0f}")
+                    
+                    # Confirmation checkbox
+                    confirm = st.checkbox("✅ Saya yakin ingin menghapus equipment ini", key="delete_confirm_checkbox")
+                    
+                    if st.button("🗑️ HAPUS EQUIPMENT TERPILIH", use_container_width=True, type="secondary") and confirm:
+                        success_count = 0
+                        error_count = 0
+                        
+                        with st.spinner("Menghapus equipment..."):
+                            for eq_id in selected_to_delete:
+                                try:
+                                    st.session_state.equipment_manager.delete_equipment(eq_id)
+                                    success_count += 1
+                                except Exception as e:
+                                    error_count += 1
+                                    st.error(f"❌ Gagal menghapus {eq_id}: {str(e)}")
+                        
                         refresh_stats_immediately()
-                        st.success(f"✅ Equipment '{eq.get('nama')}' berhasil dihapus!")
+                        st.success(f"✅ Berhasil menghapus {success_count} equipment")
+                        if error_count > 0:
+                            st.warning(f"⚠️ Gagal menghapus {error_count} equipment")
+                        time.sleep(1)
                         st.rerun()
-                    except Exception as e:
-                        st.error(f"❌ Error: {str(e)}")
+            
+            else:  # Hapus Semua di Lab Ini
+                st.subheader(f"Hapus Semua Equipment di {lab_options.get(selected_lab_delete, 'Lab')} (Type: {selected_type_delete})")
+                
+                if filtered_list:
+                    total_qty_lab = sum([int(eq.get('jumlah', 0)) for eq in filtered_list])
+                    total_value_lab = sum([float(eq.get('harga_keseluruhan', 0)) for eq in filtered_list])
+                    
+                    st.error(f"⚠️ PERHATIAN: Akan MENGHAPUS SEMUA {len(filtered_list)} equipment di lab ini!")
+                    
+                    col1, col2, col3 = st.columns(3)
+                    with col1:
+                        st.metric("Total Equipment", len(filtered_list))
+                    with col2:
+                        st.metric("Total Qty", total_qty_lab)
+                    with col3:
+                        st.metric("Total Value", f"Rp {total_value_lab:,.0f}")
+                    
+                    # List all equipment yang akan dihapus
+                    with st.expander("📋 Lihat daftar equipment yang akan dihapus"):
+                        for eq in filtered_list:
+                            st.text(f"• {eq.get('equipment_id')} - {eq.get('nama')} (Qty: {int(eq.get('jumlah', 0))})")
+                    
+                    # Double confirmation
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        confirm1 = st.checkbox("✅ Saya memahami ini akan MENGHAPUS SEMUA DATA", key="bulk_confirm1")
+                    with col2:
+                        confirm2 = st.checkbox("✅ Saya YAKIN ingin melanjutkan", key="bulk_confirm2")
+                    
+                    if st.button("🗑️ HAPUS SEMUA EQUIPMENT DI LAB INI", use_container_width=True, type="secondary") and confirm1 and confirm2:
+                        success_count = 0
+                        
+                        with st.spinner("Menghapus semua equipment..."):
+                            for eq in filtered_list:
+                                try:
+                                    st.session_state.equipment_manager.delete_equipment(eq.get('equipment_id'))
+                                    success_count += 1
+                                except Exception as e:
+                                    st.error(f"❌ Gagal menghapus: {str(e)}")
+                        
+                        refresh_stats_immediately()
+                        st.success(f"✅ Berhasil menghapus {success_count} equipment")
+                        time.sleep(1)
+                        st.rerun()
+                else:
+                    st.info("ℹ️ Tidak ada equipment di lab/type yang dipilih")
         else:
             st.info("ℹ️ Belum ada equipment yang terdaftar.")
     
-    # Tab 6: Edit Status Equipment
+    # Tab 6: Edit Equipment (Comprehensive)
     with tab6:
-        st.subheader("🔄 Ubah Status Equipment")
+        st.subheader("✏️ Edit Equipment")
         
         equipment_list = st.session_state.equipment_manager.get_all_equipment()
         if equipment_list:
             selected_equipment = st.selectbox(
-                "Pilih Equipment*",
+                "Pilih Equipment untuk diedit*",
                 options=[eq.get('equipment_id') for eq in equipment_list],
-                format_func=lambda x: next((f"{eq.get('nama')} - Status: {eq.get('status', 'active')}" 
+                format_func=lambda x: next((f"{eq.get('nama')} (ID: {eq.get('equipment_id')})" 
                                           for eq in equipment_list if eq.get('equipment_id') == x), x),
-                key="status_equipment"
+                key="edit_equipment_select"
             )
             
             eq = st.session_state.equipment_manager.get_equipment(selected_equipment)
             if eq:
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.write(f"**Nama:** {eq.get('nama')}")
-                    st.write(f"**Status Saat Ini:** {eq.get('status', 'active').upper()}")
-                with col2:
-                    st.write(f"**Qty:** {int(eq.get('jumlah', 0))}")
-                    st.write(f"**Merk:** {eq.get('merk', '-')}")
+                st.info(f"📌 Equipment ID: {eq.get('equipment_id')} | Lab: {eq.get('lab_id')} | Dibuat: {eq.get('created_date', '')[:10]}")
                 
-                # Normalize status value
-                current_status = eq.get('status', 'active').lower().strip()
-                status_mapping = {
-                    'aktif': 'active',
-                    'maintenance': 'maintenance',
-                    'habis pakai': 'depleted',
-                    'depleted': 'depleted',
-                    'archived': 'archived',
-                    'diarsipkan': 'archived'
-                }
-                normalized_status = status_mapping.get(current_status, 'active')
-                
-                # Ensure normalized status is in the allowed list
-                allowed_statuses = ['active', 'maintenance', 'depleted', 'archived']
-                if normalized_status not in allowed_statuses:
-                    normalized_status = 'active'
-                
-                new_status = st.selectbox(
-                    "Status Baru*",
-                    options=['active', 'maintenance', 'depleted', 'archived'],
-                    format_func=lambda x: {'active': '🟢 Aktif', 'maintenance': '🟡 Maintenance', 
-                                          'depleted': '🔴 Habis Pakai', 'archived': '⚪ Diarsipkan'}.get(x, x),
-                    index=allowed_statuses.index(normalized_status),
-                    help="Pilih status baru untuk equipment ini"
-                )
-                
-                keterangan = st.text_area(
-                    "Catatan Perubahan Status",
-                    placeholder="Contoh: Sedang dalam perbaikan di workshop",
-                    height=80,
-                    help="Berikan penjelasan alasan perubahan status"
-                )
-                
-                if st.button("💾 Simpan Perubahan Status", use_container_width=True):
-                    try:
-                        eq.update({'status': new_status})
-                        st.session_state.equipment_manager.update_equipment(selected_equipment, eq)
-                        refresh_stats_immediately()
-                        st.success(f"✅ Status equipment berhasil diubah menjadi: {new_status.upper()}")
-                        if keterangan:
-                            st.info(f"📝 Catatan: {keterangan}")
-                        st.rerun()
-                    except Exception as e:
-                        st.error(f"❌ Error: {str(e)}")
-        else:
-            st.info("ℹ️ Belum ada equipment yang terdaftar.")
-    
-    # Tab 7: Edit Keterangan Equipment
-    with tab7:
-        st.subheader("✏️ Edit Keterangan Equipment")
-        
-        equipment_list = st.session_state.equipment_manager.get_all_equipment()
-        if equipment_list:
-            selected_equipment = st.selectbox(
-                "Pilih Equipment*",
-                options=[eq.get('equipment_id') for eq in equipment_list],
-                format_func=lambda x: next((f"{eq.get('nama')} - {eq.get('lab_id')}" 
-                                          for eq in equipment_list if eq.get('equipment_id') == x), x),
-                key="edit_keterangan_equipment"
-            )
-            
-            eq = st.session_state.equipment_manager.get_equipment(selected_equipment)
-            if eq:
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.write(f"**Nama:** {eq.get('nama')}")
-                    st.write(f"**Lab:** {eq.get('lab_id')}")
-                with col2:
-                    st.write(f"**Status:** {eq.get('status', 'active').upper()}")
-                    st.write(f"**Qty:** {int(eq.get('jumlah', 0))}")
-                
-                st.divider()
-                
-                current_keterangan = eq.get('keterangan', '')
-                
-                with st.form(f"edit_keterangan_form_{selected_equipment}", clear_on_submit=True):
+                with st.form(f"edit_equipment_form_{selected_equipment}", clear_on_submit=False):
+                    col1, col2 = st.columns(2)
+                    
+                    # Left column
+                    with col1:
+                        st.subheader("Informasi Dasar")
+                        
+                        new_nama = st.text_input(
+                            "Nama Equipment*",
+                            value=eq.get('nama', ''),
+                            help="Nama atau deskripsi singkat equipment"
+                        )
+                        
+                        new_type = st.selectbox(
+                            "Type Equipment*",
+                            options=EQUIPMENT_TYPES,
+                            index=EQUIPMENT_TYPES.index(eq.get('type', 'Lainnya')) if eq.get('type') in EQUIPMENT_TYPES else 0,
+                            help="Kategori/tipe equipment"
+                        )
+                        
+                        new_kategori = st.selectbox(
+                            "Kategori*",
+                            options=EQUIPMENT_CATEGORIES,
+                            index=EQUIPMENT_CATEGORIES.index(eq.get('kategori', 'Lainnya')) if eq.get('kategori') in EQUIPMENT_CATEGORIES else 0,
+                            help="Klasifikasi equipment"
+                        )
+                        
+                        new_merk = st.text_input(
+                            "Merk/Brand",
+                            value=eq.get('merk', ''),
+                            help="Merek atau manufacturer equipment"
+                        )
+                    
+                    # Right column
+                    with col2:
+                        st.subheader("Detail Teknis & Stok")
+                        
+                        new_qty = st.number_input(
+                            "Jumlah (Qty)*",
+                            min_value=0.0,
+                            value=float(eq.get('jumlah', 0)),
+                            step=1.0,
+                            help="Jumlah unit saat ini di sistem"
+                        )
+                        
+                        new_harga_satuan = st.number_input(
+                            "Harga Satuan (Rp)*",
+                            min_value=0.0,
+                            value=float(eq.get('harga_satuan', 0)),
+                            step=1000.0,
+                            help="Harga per unit dalam Rupiah"
+                        )
+                        
+                        new_bom = st.text_input(
+                            "BoM / Kode Internal",
+                            value=eq.get('bom', ''),
+                            help="Bill of Materials atau kode internal (opsional)"
+                        )
+                        
+                        # Calculate and show total
+                        new_harga_total = new_qty * new_harga_satuan
+                        st.metric("Harga Total", f"Rp {new_harga_total:,.0f}")
+                    
+                    st.divider()
+                    
+                    # Status and Keterangan
+                    col1, col2 = st.columns(2)
+                    
+                    with col1:
+                        # Normalize status
+                        current_status = eq.get('status', 'active').lower().strip()
+                        status_mapping = {
+                            'aktif': 'active', 'maintenance': 'maintenance',
+                            'habis pakai': 'depleted', 'depleted': 'depleted',
+                            'archived': 'archived', 'diarsipkan': 'archived'
+                        }
+                        normalized_status = status_mapping.get(current_status, 'active')
+                        allowed_statuses = ['active', 'maintenance', 'depleted', 'archived']
+                        if normalized_status not in allowed_statuses:
+                            normalized_status = 'active'
+                        
+                        new_status = st.selectbox(
+                            "Status Equipment*",
+                            options=allowed_statuses,
+                            format_func=lambda x: {
+                                'active': '🟢 Aktif', 
+                                'maintenance': '🟡 Maintenance', 
+                                'depleted': '🔴 Habis Pakai', 
+                                'archived': '⚪ Diarsipkan'
+                            }.get(x, x),
+                            index=allowed_statuses.index(normalized_status),
+                            help="Status operasional equipment"
+                        )
+                    
+                    with col2:
+                        st.caption("📋 Info Tambahan")
+                        st.caption(f"Lab: {eq.get('lab_id')}")
+                        st.caption(f"Dibuat: {eq.get('created_date', '')[:10]}")
+                        st.caption(f"Terakhir diupdate: {eq.get('last_modified', '')[:10]}")
+                    
+                    st.divider()
+                    
                     new_keterangan = st.text_area(
-                        "Keterangan Equipment*",
-                        value=current_keterangan,
+                        "Keterangan / Catatan",
+                        value=eq.get('keterangan', ''),
                         placeholder="Contoh: Kondisi baik, Rusak sebagian, Perlu perbaikan, dll",
                         height=100,
-                        help="Masukkan deskripsi kondisi atau informasi tambahan tentang equipment ini",
-                        key="keterangan_input"
+                        help="Informasi lengkap tentang kondisi, spesifikasi, atau catatan penting equipment"
                     )
                     
-                    if st.form_submit_button("💾 Simpan Keterangan", use_container_width=True):
-                        try:
-                            eq_update = eq.copy()
-                            eq_update['keterangan'] = new_keterangan
-                            success = st.session_state.equipment_manager.update_equipment(selected_equipment, eq_update)
-                            
-                            if success:
-                                refresh_stats_immediately()
-                                st.success(f"✅ Keterangan equipment berhasil diperbarui!")
-                                st.info(f"📝 Keterangan: {new_keterangan}")
-                            else:
-                                st.error(f"❌ Gagal menyimpan keterangan")
-                        except Exception as e:
-                            st.error(f"❌ Error: {str(e)}")
+                    # Submit button
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        submitted = st.form_submit_button("💾 Simpan Perubahan", use_container_width=True)
+                    with col2:
+                        st.form_submit_button("❌ Batal", use_container_width=True, disabled=True)
+                    
+                    if submitted:
+                        if not new_nama or new_qty < 0 or new_harga_satuan < 0:
+                            st.error("❌ Nama, Qty, dan Harga Satuan harus diisi dengan nilai valid!")
+                        else:
+                            try:
+                                # Update equipment data
+                                eq_updated = eq.copy()
+                                eq_updated.update({
+                                    'nama': new_nama,
+                                    'type': new_type,
+                                    'kategori': new_kategori,
+                                    'merk': new_merk,
+                                    'jumlah': new_qty,
+                                    'harga_satuan': new_harga_satuan,
+                                    'harga_keseluruhan': new_harga_total,
+                                    'bom': new_bom,
+                                    'status': new_status,
+                                    'keterangan': new_keterangan,
+                                    'last_modified': datetime.now().isoformat()
+                                })
+                                
+                                success = st.session_state.equipment_manager.update_equipment(selected_equipment, eq_updated)
+                                
+                                if success:
+                                    refresh_stats_immediately()
+                                    st.success("✅ Equipment berhasil diperbarui!")
+                                    st.info(f"📝 Perubahan: Nama={new_nama}, Type={new_type}, Status={new_status}")
+                                    time.sleep(1)
+                                    st.rerun()
+                                else:
+                                    st.error("❌ Gagal menyimpan perubahan")
+                            except Exception as e:
+                                st.error(f"❌ Error: {str(e)}")
         else:
             st.info("ℹ️ Belum ada equipment yang terdaftar.")
 
@@ -824,15 +1100,16 @@ elif page == "📤 Inventory Adjustment":
             equipment_list = st.session_state.equipment_manager.get_equipment_by_lab(selected_lab)
             
             if equipment_list:
+                # Equipment selectbox OUTSIDE form to ensure proper state management
+                selected_equipment = st.selectbox(
+                    "Pilih Equipment*",
+                    options=[eq.get('equipment_id') for eq in equipment_list],
+                    format_func=lambda x: next((eq.get('nama') for eq in equipment_list if eq.get('equipment_id') == x), x),
+                    help="Equipment mana yang akan ditambahkan/masuk",
+                    key=f"in_equipment_{selected_lab}"
+                )
+                
                 with st.form("in_movement_form", clear_on_submit=True):
-                    selected_equipment = st.selectbox(
-                        "Pilih Equipment*",
-                        options=[eq.get('equipment_id') for eq in equipment_list],
-                        format_func=lambda x: next((eq.get('nama') for eq in equipment_list if eq.get('equipment_id') == x), x),
-                        help="Equipment mana yang akan ditambahkan/masuk",
-                        key=f"in_equipment_{selected_lab}"
-                    )
-                    
                     # Add date input
                     col1, col2 = st.columns(2)
                     with col1:
@@ -904,20 +1181,22 @@ elif page == "📤 Inventory Adjustment":
             equipment_list = st.session_state.equipment_manager.get_equipment_by_lab(selected_lab)
             
             if equipment_list:
+                # Equipment selectbox OUTSIDE form to ensure proper refresh of stock info
+                selected_equipment = st.selectbox(
+                    "Pilih Equipment*",
+                    options=[eq.get('equipment_id') for eq in equipment_list],
+                    format_func=lambda x: next((eq.get('nama') for eq in equipment_list if eq.get('equipment_id') == x), x),
+                    key=f"out_equipment_{selected_lab}",
+                    help="Equipment mana yang akan keluar"
+                )
+                
+                # Get current quantity - refresh automatically when equipment changes
+                eq = st.session_state.equipment_manager.get_equipment(selected_equipment)
+                current_qty = float(eq.get('jumlah', 0)) if eq else 0
+                
+                st.info(f"💾 Stok Saat Ini: {int(current_qty)} unit")
+                
                 with st.form("out_movement_form", clear_on_submit=True):
-                    selected_equipment = st.selectbox(
-                        "Pilih Equipment*",
-                        options=[eq.get('equipment_id') for eq in equipment_list],
-                        format_func=lambda x: next((eq.get('nama') for eq in equipment_list if eq.get('equipment_id') == x), x),
-                        key=f"out_equipment_{selected_lab}",
-                        help="Equipment mana yang akan keluar"
-                    )
-                    
-                    # Get current quantity
-                    eq = st.session_state.equipment_manager.get_equipment(selected_equipment)
-                    current_qty = float(eq.get('jumlah', 0)) if eq else 0
-                    
-                    st.info(f"💾 Stok Saat Ini: {int(current_qty)} unit")
                     
                     # Add date input
                     col1, col2 = st.columns(2)
@@ -972,46 +1251,132 @@ elif page == "📤 Inventory Adjustment":
             else:
                 st.info("ℹ️ Belum ada equipment di lab ini.")
     
-    # Tab 3: History
+    # Tab 3: History (Enhanced with Search)
     with tab3:
-        st.subheader("History Pergerakan Inventory")
+        st.subheader("📝 History Pergerakan Inventory")
         
-        col1, col2 = st.columns(2)
+        st.info("💡 Lihat semua pergerakan equipment (masuk, keluar, adjustment) dari semua lab")
+        
+        col1, col2, col3, col4 = st.columns(4)
         
         with col1:
-            start_date = st.date_input("Dari Tanggal:", key="movement_start")
+            start_date = st.date_input(
+                "Dari Tanggal*",
+                value=(datetime.now() - timedelta(days=30)).date(),
+                key="movement_start"
+            )
+        
         with col2:
-            end_date = st.date_input("Sampai Tanggal:", key="movement_end")
+            end_date = st.date_input(
+                "Sampai Tanggal*",
+                value=datetime.now().date(),
+                key="movement_end"
+            )
         
-        movements = st.session_state.inventory_manager.get_movements(
-            start_date=start_date.isoformat(),
-            end_date=end_date.isoformat()
-        )
+        with col3:
+            # Get all labs for filter
+            labs = st.session_state.lab_manager.get_all_labs()
+            lab_options = {lab.get('lab_id'): lab.get('name') for lab in labs}
+            selected_lab_history = st.selectbox(
+                "Filter Lab",
+                options=['all'] + list(lab_options.keys()),
+                format_func=lambda x: 'Semua Lab' if x == 'all' else lab_options.get(x, x),
+                key="history_lab_filter"
+            )
         
-        if movements:
-            # Create dataframe
-            df_data = []
-            for m in movements:
-                # Use stored equipment_name from movement record if available
-                equipment_name = m.get('equipment_name', '')
-                if not equipment_name:
-                    # Fallback: lookup from equipment_manager
-                    eq = st.session_state.equipment_manager.get_equipment(m.get('equipment_id'))
-                    equipment_name = eq.get('nama', 'N/A') if eq else 'N/A'
-                
-                df_data.append({
-                    'Tanggal': m.get('date', '')[:10],
-                    'Equipment': equipment_name,
-                    'Lab': m.get('lab_id', '-'),
-                    'Tipe': m.get('movement_type', '-').upper(),
-                    'Qty': int(m.get('quantity', 0)),
-                    'Catatan': m.get('notes', '')[:50]
-                })
+        with col4:
+            selected_movement_type = st.selectbox(
+                "Filter Tipe Pergerakan",
+                options=['Semua', 'in', 'out', 'adjustment'],
+                format_func=lambda x: 'Semua' if x == 'Semua' else x.upper(),
+                key="history_type_filter"
+            )
+        
+        # Search button
+        if st.button("🔍 Cari Pergerakan", use_container_width=True, key="search_history_btn"):
+            movements = st.session_state.inventory_manager.get_movements(
+                start_date=start_date.isoformat(),
+                end_date=end_date.isoformat()
+            )
             
-            df = pd.DataFrame(df_data)
-            st.dataframe(df, use_container_width=True, hide_index=True)
-        else:
-            st.info("ℹ️ Tidak ada pergerakan inventory dalam periode ini.")
+            # Apply lab filter
+            if selected_lab_history != 'all':
+                movements = [m for m in movements if m.get('lab_id') == selected_lab_history]
+            
+            # Apply movement type filter
+            if selected_movement_type != 'Semua':
+                movements = [m for m in movements if m.get('movement_type') == selected_movement_type]
+            
+            if movements:
+                st.success(f"✅ Ditemukan {len(movements)} pergerakan inventory")
+                
+                # Create comprehensive dataframe
+                df_data = []
+                for m in movements:
+                    # Get equipment name
+                    equipment_name = m.get('equipment_name', '')
+                    if not equipment_name:
+                        eq = st.session_state.equipment_manager.get_equipment(m.get('equipment_id'))
+                        equipment_name = eq.get('nama', 'N/A') if eq else 'N/A'
+                    
+                    # Get equipment type
+                    equipment_type = 'N/A'
+                    eq = st.session_state.equipment_manager.get_equipment(m.get('equipment_id'))
+                    if eq:
+                        equipment_type = eq.get('type', 'N/A')
+                    
+                    movement_type_display = {
+                        'in': '📥 Masuk',
+                        'out': '📤 Keluar',
+                        'adjustment': '⚙️ Adjustment'
+                    }.get(m.get('movement_type', '-'), m.get('movement_type', '-'))
+                    
+                    df_data.append({
+                        'Tanggal': m.get('date', '')[:10],
+                        'Jam': m.get('date', '')[11:19] if len(m.get('date', '')) > 10 else '-',
+                        'Equipment ID': m.get('equipment_id', ''),
+                        'Equipment Name': equipment_name,
+                        'Type': equipment_type,
+                        'Lab': m.get('lab_id', '-'),
+                        'Tipe Pergerakan': movement_type_display,
+                        'Qty': int(m.get('quantity', 0)),
+                        'Catatan': m.get('notes', '')[:60]
+                    })
+                
+                df = pd.DataFrame(df_data)
+                
+                st.dataframe(
+                    df,
+                    use_container_width=True,
+                    hide_index=True,
+                    height=500
+                )
+                
+                # Summary statistics
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    in_count = len([m for m in movements if m.get('movement_type') == 'in'])
+                    st.metric("📥 Masuk", in_count)
+                with col2:
+                    out_count = len([m for m in movements if m.get('movement_type') == 'out'])
+                    st.metric("📤 Keluar", out_count)
+                with col3:
+                    adj_count = len([m for m in movements if m.get('movement_type') == 'adjustment'])
+                    st.metric("⚙️ Adjustment", adj_count)
+                
+                # Export option
+                if st.button("📥 Export History ke Excel", use_container_width=True):
+                    # Create export file
+                    excel_file = st.session_state.template_handler.export_consumption_report(movements)
+                    if excel_file:
+                        st.download_button(
+                            label="⬇️ Download Excel",
+                            data=excel_file,
+                            file_name=f"history_{start_date}_{end_date}.xlsx",
+                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        )
+            else:
+                st.info("ℹ️ Tidak ada pergerakan inventory dalam periode dan filter yang dipilih.")
 
 # ============================================================================
 # PAGE: REPORTS & ANALYTICS

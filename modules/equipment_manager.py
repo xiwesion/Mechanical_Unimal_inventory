@@ -7,13 +7,26 @@ import os
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Optional
-import uuid
 
 class EquipmentManager:
     """Manages equipment registry and storage"""
     
     DATA_DIR = Path(__file__).parent.parent / "data"
     EQUIPMENT_FILE = DATA_DIR / "equipment_registry.json"
+    
+    # Equipment Type to ID Prefix Mapping
+    TYPE_PREFIX_MAP = {
+        'Mesin': 'M',
+        'Alat Ukur': 'AU',
+        'Peralatan Bengkel': 'PB',
+        'Peralatan Uji': 'PU',
+        'Peralatan Keselamatan': 'PK',
+        'Komponen Spare Part': 'SP',
+        'Konsumable': 'K',
+        'Peralatan Peraga': 'PP',
+        'Software/Lisensi': 'SW',
+        'Lainnya': 'LN'
+    }
     
     def __init__(self):
         """Initialize equipment manager"""
@@ -45,6 +58,51 @@ class EquipmentManager:
         except Exception as e:
             print(f"Error saving equipment: {e}")
     
+    def _generate_equipment_id(self, equipment_type: str) -> str:
+        """
+        Generate equipment ID based on type with auto-increment
+        
+        Format: PREFIX + 2-digit number (e.g., M01, AU02, K03)
+        
+        Args:
+            equipment_type: Equipment type from EQUIPMENT_TYPES
+            
+        Returns:
+            Generated equipment ID
+        """
+        # Get prefix for type
+        # If type starts with "Lainnya(", extract the original type if possible
+        base_type = equipment_type
+        if base_type.startswith('Lainnya('):
+            # Use LN prefix for invalid types
+            prefix = 'LN'
+        else:
+            prefix = self.TYPE_PREFIX_MAP.get(base_type, 'LN')
+        
+        # Find all equipment with same prefix
+        existing_ids = [
+            eq.get('equipment_id', '')
+            for eq in self.equipment.values()
+            if eq.get('equipment_id', '').startswith(prefix)
+        ]
+        
+        # Extract numbers and find highest
+        numbers = []
+        for eq_id in existing_ids:
+            # Remove prefix and extract digits
+            remainder = eq_id[len(prefix):]
+            try:
+                num = int(remainder)
+                numbers.append(num)
+            except ValueError:
+                pass
+        
+        # Next number is max + 1
+        next_num = max(numbers) + 1 if numbers else 1
+        
+        # Format with 2 digits (01, 02, etc.)
+        return f"{prefix}{next_num:02d}"
+    
     def add_equipment(self, lab_id: str, equipment_data: Dict) -> Optional[str]:
         """
         Add new equipment
@@ -63,8 +121,9 @@ class EquipmentManager:
                 if field not in equipment_data:
                     raise ValueError(f"Missing required field: {field}")
             
-            # Generate unique ID
-            equipment_id = str(uuid.uuid4())[:8]
+            # Generate equipment ID based on type
+            equipment_type = equipment_data.get('type', 'Lainnya')
+            equipment_id = self._generate_equipment_id(equipment_type)
             
             # Prepare equipment data
             equipment_data['equipment_id'] = equipment_id
